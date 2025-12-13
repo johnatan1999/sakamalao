@@ -1,0 +1,14 @@
+package mg.sakamalao.project.core.repository;
+
+import mg.sakamalao.core.domain.entity.Project;
+import mg.sakamalao.core.domain.input.ProjectInput;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ProjectRepository {
+    Project save(ProjectInput project);
+    List<Project> find(String criteria);
+    void delete(String projectId);
+    Optional<Project> findById(String id);
+}

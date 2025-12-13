@@ -1,0 +1,4 @@
+security:
+  jwt:
+    secret: s4k4m4l40-s3cr37
+    expiration: 36000000 # 10h temporary

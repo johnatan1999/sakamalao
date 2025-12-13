@@ -1,0 +1,11 @@
+package mg.sakamalao.project.infrastructure.adapter.persistence.jpa;
+
+import mg.sakamalao.project.infrastructure.adapter.persistence.entity.ProjectDbEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface ProjectJpaRepository extends JpaRepository<ProjectDbEntity, UUID> {
+}
