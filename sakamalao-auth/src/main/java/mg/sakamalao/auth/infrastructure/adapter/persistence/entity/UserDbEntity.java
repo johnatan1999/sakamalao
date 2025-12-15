@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mg.sakamalao.auth.core.domain.UserRoleEnum;
+import mg.sakamalao.core.domain.enums.UserRoleEnum;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
 @Data
-@Entity
+@Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDbEntity {

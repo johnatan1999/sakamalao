@@ -42,4 +42,6 @@ public class ProjectDbEntity  {
     @Enumerated(EnumType.STRING)
     private EntityStatus status;
 
+    @Column(name = "owner_id", nullable = false)
+    private UUID ownerId;
 }

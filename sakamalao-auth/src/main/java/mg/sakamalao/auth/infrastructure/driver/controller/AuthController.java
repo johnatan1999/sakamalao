@@ -1,13 +1,13 @@
 package mg.sakamalao.auth.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.auth.core.domain.User;
 import mg.sakamalao.auth.core.usecase.AuthenticateUserUseCase;
 import mg.sakamalao.auth.core.usecase.RegisterUserUseCase;
 import mg.sakamalao.auth.infrastructure.driver.entity.request.LoginRequest;
 import mg.sakamalao.auth.infrastructure.driver.entity.request.RegistrationRequest;
 import mg.sakamalao.auth.infrastructure.driver.entity.response.TokenResponse;
 import mg.sakamalao.auth.infrastructure.driver.entity.response.UserResponse;
+import mg.sakamalao.core.domain.entity.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,15 +2,23 @@ package mg.sakamalao.project.core.usecase;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.core.domain.entity.Project;
+import mg.sakamalao.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.project.core.repository.ProjectRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class FindByIdProjectUseCase {
     private final ProjectRepository repository;
 
-    public Optional<Project> findById(String id) {
-        return repository.findById(id);
+    public Optional<Project> findById(UUID userId, String id) {
+        var result = repository.findById(id);
+        if (result.isPresent() && !result.get().getOwerId().equals(userId)) {
+            throw new EntityNotFoundException(
+                    "Project with id=%s not found".formatted(id)
+            );
+        }
+        return result;
     }
 }

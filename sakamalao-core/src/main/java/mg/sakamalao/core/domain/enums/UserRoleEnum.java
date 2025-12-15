@@ -1,4 +1,4 @@
-package mg.sakamalao.auth.core.domain;
+package mg.sakamalao.core.domain.enums;
 
 public enum UserRoleEnum {
     ADMIN,

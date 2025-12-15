@@ -1,6 +1,6 @@
 package mg.sakamalao.auth.core.repository;
 
-import mg.sakamalao.auth.core.domain.User;
+import mg.sakamalao.core.domain.entity.User;
 
 import java.util.Optional;
 

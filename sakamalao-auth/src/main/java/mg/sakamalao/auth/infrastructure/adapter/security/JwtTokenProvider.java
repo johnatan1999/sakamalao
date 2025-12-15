@@ -3,9 +3,9 @@ package mg.sakamalao.auth.infrastructure.adapter.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import mg.sakamalao.auth.core.domain.User;
 import mg.sakamalao.auth.core.repository.TokenGenerator;
 import mg.sakamalao.auth.infrastructure.config.JwtConfig;
+import mg.sakamalao.core.domain.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -30,8 +30,10 @@ public class JwtTokenProvider implements TokenGenerator {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + jwtConfig.getExpiration());
         return Jwts.builder()
-                .setSubject(user.id())
+                .setSubject(user.id().toString())
                 .claim("username", user.username())
+                .claim("email", user.email())
+                .claim("user_id", user.id())
                 .claim("role", user.role())
                 .setIssuedAt(now)
                 .setExpiration(expiry)

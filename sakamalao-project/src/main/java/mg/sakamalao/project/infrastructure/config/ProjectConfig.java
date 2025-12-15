@@ -1,5 +1,6 @@
 package mg.sakamalao.project.infrastructure.config;
 
+import mg.sakamalao.project.core.repository.ProjectMemberRepository;
 import mg.sakamalao.project.core.repository.ProjectRepository;
 import mg.sakamalao.project.core.usecase.CreateProjectUseCase;
 import mg.sakamalao.project.core.usecase.DeleteProjectUseCase;
@@ -12,8 +13,11 @@ import org.springframework.context.annotation.Configuration;
 public class ProjectConfig {
 
     @Bean
-    public CreateProjectUseCase createProjectUseCase(ProjectRepository repository) {
-        return new CreateProjectUseCase(repository);
+    public CreateProjectUseCase createProjectUseCase(
+            ProjectRepository repository,
+            ProjectMemberRepository projectMemberRepository
+    ) {
+        return new CreateProjectUseCase(repository, projectMemberRepository);
     }
 
     @Bean

@@ -4,9 +4,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import mg.sakamalao.core.domain.enums.EntityStatus;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 public abstract class BaseEntity {
-    private String id;
+    private UUID id;
     private EntityStatus status;
 }

@@ -1,9 +1,9 @@
 package mg.sakamalao.auth.core.usecase;
 
-import mg.sakamalao.auth.core.domain.User;
 import mg.sakamalao.auth.core.repository.PasswordEncoderPort;
 import mg.sakamalao.auth.core.repository.TokenGenerator;
 import mg.sakamalao.auth.core.repository.UserRepository;
+import mg.sakamalao.core.domain.entity.User;
 import mg.sakamalao.core.domain.exception.AuthenticationException;
 import mg.sakamalao.core.domain.exception.EntityNotFoundException;
 

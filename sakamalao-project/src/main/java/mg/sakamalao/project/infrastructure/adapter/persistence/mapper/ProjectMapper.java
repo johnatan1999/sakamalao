@@ -15,7 +15,8 @@ public class ProjectMapper {
                 project.budget(),
                 project.startDate(),
                 project.endDate(),
-                EntityStatus.CREATED
+                EntityStatus.CREATED,
+                project.ownerId()
         );
     }
 
@@ -23,11 +24,12 @@ public class ProjectMapper {
         var p = new Project(
                 project.getName(),
                 project.getDescription(),
+                project.getOwnerId(),
                 project.getBudget(),
                 project.getStartDate(),
                 project.getEndDate()
         );
-        p.setId(project.getId().toString());
+        p.setId(project.getId());
         p.setStatus(project.getStatus());
         return p;
     }

@@ -1,11 +1,11 @@
 package mg.sakamalao.auth.core.usecase;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.auth.core.domain.User;
-import mg.sakamalao.auth.core.domain.UserRoleEnum;
 import mg.sakamalao.auth.core.domain.input.UserInput;
 import mg.sakamalao.auth.core.repository.PasswordEncoderPort;
 import mg.sakamalao.auth.core.repository.UserRepository;
+import mg.sakamalao.core.domain.entity.User;
+import mg.sakamalao.core.domain.enums.UserRoleEnum;
 import mg.sakamalao.core.domain.exception.UserAlreadyExistsException;
 import mg.sakamalao.core.validator.FieldValidator;
 

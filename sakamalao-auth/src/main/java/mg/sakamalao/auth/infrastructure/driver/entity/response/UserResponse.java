@@ -1,6 +1,8 @@
 package mg.sakamalao.auth.infrastructure.driver.entity.response;
 
-import mg.sakamalao.auth.core.domain.UserRoleEnum;
+import mg.sakamalao.core.domain.enums.UserRoleEnum;
 
-public record UserResponse (String id, String username, String email, UserRoleEnum role){
+import java.util.UUID;
+
+public record UserResponse (UUID id, String username, String email, UserRoleEnum role){
 }

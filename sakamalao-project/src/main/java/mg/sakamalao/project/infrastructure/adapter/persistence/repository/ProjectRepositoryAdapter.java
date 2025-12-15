@@ -26,8 +26,8 @@ public class ProjectRepositoryAdapter implements ProjectRepository {
     }
 
     @Override
-    public List<Project> find(String criteria) {
-        return repository.findAll().stream().map(ProjectMapper::fromDbEntity).toList();
+    public List<Project> find(UUID ownerId, String criteria) {
+        return repository.findAllByOwnerId(ownerId).stream().map(ProjectMapper::fromDbEntity).toList();
     }
 
     @Override

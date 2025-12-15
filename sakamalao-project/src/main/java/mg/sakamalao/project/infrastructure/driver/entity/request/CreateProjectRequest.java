@@ -15,6 +15,7 @@ public record CreateProjectRequest(
         return new ProjectInput(
                 name,
                 description,
+                null,
                 budget,
                 startDate,
                 endDate
