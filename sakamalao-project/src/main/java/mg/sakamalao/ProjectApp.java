@@ -1,4 +1,4 @@
-package mg.sakamalao.project;
+package mg.sakamalao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

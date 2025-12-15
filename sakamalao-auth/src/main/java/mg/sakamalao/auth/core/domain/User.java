@@ -5,6 +5,6 @@ public record User(
     String username,
     String email,
     String password,
-    RoleEnum role
+    UserRoleEnum role
 ) {
 }

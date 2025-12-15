@@ -20,7 +20,8 @@ public class AuthenticateUserUseCase {
 
     public String authenticate(String username, String password) {
         User user = repository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseGet(() -> repository.findByEmail(username)
+                        .orElseThrow(() -> new EntityNotFoundException("User not found")));
 
         if (!passwordValidator.validate(password, user.password())) {
             throw new AuthenticationException("Invalid credentials");

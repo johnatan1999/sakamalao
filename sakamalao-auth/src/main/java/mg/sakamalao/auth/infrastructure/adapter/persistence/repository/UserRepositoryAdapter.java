@@ -1,7 +1,6 @@
 package mg.sakamalao.auth.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.auth.core.domain.RoleEnum;
 import mg.sakamalao.auth.core.domain.User;
 import mg.sakamalao.auth.core.repository.UserRepository;
 import mg.sakamalao.auth.infrastructure.adapter.persistence.entity.UserDbEntity;
@@ -34,14 +33,38 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public Optional<User> findByEmail(String email) {
+        var optionalUser =  repository.findOneByEmail(email);
+        if (optionalUser.isEmpty())
+            return Optional.empty();
+        var user = optionalUser.get();
+        return Optional.of(
+                new User(
+                        user.getId().toString(),
+                        user.getUsername(),
+                        user.getEmail(),
+                        user.getPassword(),
+                        user.getRole()
+                )
+        );
+    }
+
+    @Override
+    public User save(User user) {
         UserDbEntity entity = new UserDbEntity(
                 null,
                 user.username(),
+                user.email(),
                 user.password(),
-                user.password(),
-                RoleEnum.ADMIN
+                user.role()
         );
-        repository.save(entity);
+        var newUser = repository.save(entity);
+        return new User(
+                newUser.getId().toString(),
+                newUser.getUsername(),
+                newUser.getEmail(),
+                null,
+                newUser.getRole()
+        );
     }
 }

@@ -1,6 +1,6 @@
 package mg.sakamalao.auth.core.domain;
 
-public enum RoleEnum {
+public enum UserRoleEnum {
     ADMIN,
     USER
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mg.sakamalao.auth.core.domain.RoleEnum;
+import mg.sakamalao.auth.core.domain.UserRoleEnum;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
@@ -31,5 +31,5 @@ public class UserDbEntity {
 
     @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    private UserRoleEnum role;
 }
