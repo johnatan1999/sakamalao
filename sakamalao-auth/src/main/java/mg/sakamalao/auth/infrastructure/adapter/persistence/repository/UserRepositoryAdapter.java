@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mg.sakamalao.auth.core.repository.UserRepository;
 import mg.sakamalao.auth.infrastructure.adapter.persistence.entity.UserDbEntity;
 import mg.sakamalao.auth.infrastructure.adapter.persistence.jpa.UserJpaRepository;
-import mg.sakamalao.core.domain.entity.User;
+import mg.sakamalao.common.core.domain.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

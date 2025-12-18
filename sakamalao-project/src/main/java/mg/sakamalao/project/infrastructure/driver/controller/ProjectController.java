@@ -1,9 +1,10 @@
 package mg.sakamalao.project.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.core.domain.entity.Project;
-import mg.sakamalao.core.domain.entity.User;
-import mg.sakamalao.core.infrastructure.driver.BaseController;
+import mg.sakamalao.common.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.entity.User;
+import mg.sakamalao.common.infrastructure.driver.BaseController;
+import mg.sakamalao.common.infrastructure.driver.domain.CurrentUser;
 import mg.sakamalao.project.core.usecase.CreateProjectUseCase;
 import mg.sakamalao.project.core.usecase.DeleteProjectUseCase;
 import mg.sakamalao.project.core.usecase.FindByIdProjectUseCase;
@@ -26,16 +27,17 @@ public class ProjectController extends BaseController {
 
     @PostMapping
     public ResponseEntity<ProjectResponse> create(
-            @RequestBody CreateProjectRequest request
+            @RequestBody CreateProjectRequest request,
+            @CurrentUser User user
     ) {
-        User user = getCurrentUser();
         Project created = createProjectUseCase.create(user.id(), request.toProjectInput());
         return ResponseEntity.status(201).body(ProjectResponse.from(created));
     }
 
     @GetMapping
-    public ResponseEntity<List<ProjectResponse>> findAll() {
-        User user = getCurrentUser();
+    public ResponseEntity<List<ProjectResponse>> findAll(
+            @CurrentUser User user
+    ) {
         return ResponseEntity.ok(findProjectUseCase.find(user.id(), null)
                 .stream()
                 .map(ProjectResponse::from)
@@ -43,8 +45,10 @@ public class ProjectController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectResponse> findById(@PathVariable("id") String id) {
-        User user = getCurrentUser();
+    public ResponseEntity<ProjectResponse> findById(
+            @PathVariable("id") String id,
+            @CurrentUser User user
+    ) {
         return findByIdProjectUseCase.findById(user.id(), id)
                 .map(ProjectResponse::from)
                 .map(ResponseEntity::ok)
@@ -52,8 +56,10 @@ public class ProjectController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
-        User user = getCurrentUser();
+    public ResponseEntity<Void> delete(
+            @PathVariable("id") String id,
+            @CurrentUser User user
+    ) {
         deleteProjectUseCase.delete(user.id(), id);
         return ResponseEntity.noContent().build();
     }

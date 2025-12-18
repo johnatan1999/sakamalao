@@ -1,7 +1,7 @@
 package mg.sakamalao.api.driver.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import mg.sakamalao.core.domain.exception.*;
+import mg.sakamalao.common.core.domain.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,8 +1,8 @@
 package mg.sakamalao.project.infrastructure.adapter.persistence.mapper;
 
-import mg.sakamalao.core.domain.entity.Project;
-import mg.sakamalao.core.domain.enums.EntityStatus;
-import mg.sakamalao.core.domain.input.ProjectInput;
+import mg.sakamalao.common.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.enums.EntityStatus;
+import mg.sakamalao.common.core.domain.input.ProjectInput;
 import mg.sakamalao.project.infrastructure.adapter.persistence.entity.ProjectDbEntity;
 
 public class ProjectMapper {

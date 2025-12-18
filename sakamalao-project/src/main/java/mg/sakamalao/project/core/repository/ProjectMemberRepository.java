@@ -1,6 +1,6 @@
 package mg.sakamalao.project.core.repository;
 
-import mg.sakamalao.core.domain.entity.ProjectMember;
+import mg.sakamalao.common.core.domain.entity.ProjectMember;
 import mg.sakamalao.project.core.domain.ProjectMemberInput;
 
 import java.util.UUID;

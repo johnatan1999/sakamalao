@@ -1,7 +1,7 @@
 package mg.sakamalao.project.core.usecase;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.entity.Project;
 import mg.sakamalao.project.core.repository.ProjectRepository;
 
 import java.util.List;

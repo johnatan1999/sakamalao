@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "mg.sakamalao.auth",
         "mg.sakamalao.api",
         "mg.sakamalao.project",
+        "mg.sakamalao.expense",
+        "mg.sakamalao.income",
         "mg.sakamalao.common"
 })
 public class SakamalaoApi {

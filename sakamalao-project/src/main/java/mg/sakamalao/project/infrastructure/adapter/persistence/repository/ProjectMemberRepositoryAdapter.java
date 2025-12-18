@@ -1,7 +1,7 @@
 package mg.sakamalao.project.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.core.domain.entity.ProjectMember;
+import mg.sakamalao.common.core.domain.entity.ProjectMember;
 import mg.sakamalao.project.core.domain.ProjectMemberInput;
 import mg.sakamalao.project.core.repository.ProjectMemberRepository;
 import mg.sakamalao.project.infrastructure.adapter.persistence.entity.ProjectMemberDbEntity;

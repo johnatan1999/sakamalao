@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mg.sakamalao.core.domain.enums.ProjectRole;
+import mg.sakamalao.common.core.domain.enums.ProjectRole;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;

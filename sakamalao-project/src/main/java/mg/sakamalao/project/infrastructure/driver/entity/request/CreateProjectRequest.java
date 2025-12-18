@@ -1,6 +1,6 @@
 package mg.sakamalao.project.infrastructure.driver.entity.request;
 
-import mg.sakamalao.core.domain.input.ProjectInput;
+import mg.sakamalao.common.core.domain.input.ProjectInput;
 
 import java.time.LocalDate;
 

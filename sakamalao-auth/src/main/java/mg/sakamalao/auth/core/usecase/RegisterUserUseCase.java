@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import mg.sakamalao.auth.core.domain.input.UserInput;
 import mg.sakamalao.auth.core.repository.PasswordEncoderPort;
 import mg.sakamalao.auth.core.repository.UserRepository;
-import mg.sakamalao.core.domain.entity.User;
-import mg.sakamalao.core.domain.enums.UserRoleEnum;
-import mg.sakamalao.core.domain.exception.UserAlreadyExistsException;
-import mg.sakamalao.core.validator.FieldValidator;
+import mg.sakamalao.common.core.domain.entity.User;
+import mg.sakamalao.common.core.domain.enums.UserRoleEnum;
+import mg.sakamalao.common.core.domain.exception.UserAlreadyExistsException;
+import mg.sakamalao.common.validator.FieldValidator;
 
 @RequiredArgsConstructor
 public class RegisterUserUseCase {

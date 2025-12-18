@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mg.sakamalao.core.domain.enums.EntityStatus;
+import mg.sakamalao.common.core.domain.enums.EntityStatus;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;

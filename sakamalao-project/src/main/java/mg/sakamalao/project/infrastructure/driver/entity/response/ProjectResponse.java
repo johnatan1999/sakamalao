@@ -1,6 +1,6 @@
 package mg.sakamalao.project.infrastructure.driver.entity.response;
 
-import mg.sakamalao.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.entity.Project;
 
 import java.time.LocalDate;
 import java.util.UUID;

@@ -5,7 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import mg.sakamalao.auth.core.repository.TokenGenerator;
 import mg.sakamalao.auth.infrastructure.config.JwtConfig;
-import mg.sakamalao.core.domain.entity.User;
+import mg.sakamalao.common.core.domain.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;

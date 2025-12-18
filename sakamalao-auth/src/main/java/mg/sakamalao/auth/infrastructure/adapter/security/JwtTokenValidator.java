@@ -5,8 +5,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import mg.sakamalao.auth.core.repository.TokenValidator;
 import mg.sakamalao.auth.infrastructure.config.JwtConfig;
-import mg.sakamalao.core.domain.entity.User;
-import mg.sakamalao.core.domain.enums.UserRoleEnum;
+import mg.sakamalao.common.core.domain.entity.User;
+import mg.sakamalao.common.core.domain.enums.UserRoleEnum;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;

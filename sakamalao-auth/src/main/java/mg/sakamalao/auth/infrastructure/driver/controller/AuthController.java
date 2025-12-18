@@ -7,7 +7,7 @@ import mg.sakamalao.auth.infrastructure.driver.entity.request.LoginRequest;
 import mg.sakamalao.auth.infrastructure.driver.entity.request.RegistrationRequest;
 import mg.sakamalao.auth.infrastructure.driver.entity.response.TokenResponse;
 import mg.sakamalao.auth.infrastructure.driver.entity.response.UserResponse;
-import mg.sakamalao.core.domain.entity.User;
+import mg.sakamalao.common.core.domain.entity.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

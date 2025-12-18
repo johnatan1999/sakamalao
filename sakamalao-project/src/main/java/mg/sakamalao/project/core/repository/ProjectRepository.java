@@ -1,7 +1,7 @@
 package mg.sakamalao.project.core.repository;
 
-import mg.sakamalao.core.domain.entity.Project;
-import mg.sakamalao.core.domain.input.ProjectInput;
+import mg.sakamalao.common.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.input.ProjectInput;
 
 import java.util.List;
 import java.util.Optional;

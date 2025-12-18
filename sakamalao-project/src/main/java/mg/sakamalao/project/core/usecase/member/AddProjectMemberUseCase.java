@@ -1,8 +1,8 @@
 package mg.sakamalao.project.core.usecase.member;
 
-import mg.sakamalao.core.domain.enums.ProjectRole;
-import mg.sakamalao.core.domain.exception.ProjectException;
-import mg.sakamalao.core.validator.FieldValidator;
+import mg.sakamalao.common.core.domain.enums.ProjectRole;
+import mg.sakamalao.common.core.domain.exception.ProjectException;
+import mg.sakamalao.common.validator.FieldValidator;
 import mg.sakamalao.project.core.domain.ProjectMemberInput;
 import mg.sakamalao.project.core.repository.ProjectMemberRepository;
 

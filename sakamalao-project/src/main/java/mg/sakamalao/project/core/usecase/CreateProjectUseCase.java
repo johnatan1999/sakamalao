@@ -1,11 +1,11 @@
 package mg.sakamalao.project.core.usecase;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.core.domain.entity.Project;
-import mg.sakamalao.core.domain.enums.ProjectRole;
-import mg.sakamalao.core.domain.exception.MissingFieldException;
-import mg.sakamalao.core.domain.input.ProjectInput;
-import mg.sakamalao.core.validator.FieldValidator;
+import mg.sakamalao.common.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.enums.ProjectRole;
+import mg.sakamalao.common.core.domain.exception.MissingFieldException;
+import mg.sakamalao.common.core.domain.input.ProjectInput;
+import mg.sakamalao.common.validator.FieldValidator;
 import mg.sakamalao.project.core.domain.ProjectMemberInput;
 import mg.sakamalao.project.core.repository.ProjectMemberRepository;
 import mg.sakamalao.project.core.repository.ProjectRepository;
