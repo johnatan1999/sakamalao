@@ -27,6 +27,7 @@ public class CreateExpenseUseCase {
         FieldValidator.notNull("input", input);
         FieldValidator.required("name", input.name());
         FieldValidator.notNull("projectId", input.projectId());
+        FieldValidator.nonNegative("amount", input.amount());
 
         boolean hasAccess = projectAccessPort.hasAccess(userId, input.projectId());
         if (!hasAccess) {

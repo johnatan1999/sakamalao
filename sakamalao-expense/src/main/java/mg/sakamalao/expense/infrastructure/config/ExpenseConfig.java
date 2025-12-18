@@ -3,7 +3,9 @@ package mg.sakamalao.expense.infrastructure.config;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.expense.core.usecase.CreateExpenseUseCase;
+import mg.sakamalao.expense.core.usecase.DeleteExpenseUseCase;
 import mg.sakamalao.expense.core.usecase.ListExpensesUseCase;
+import mg.sakamalao.expense.core.usecase.UpdateExpenseUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,5 +26,21 @@ public class ExpenseConfig {
             ProjectAccessPort projectAccessPort
     ) {
         return new ListExpensesUseCase(repository, projectAccessPort);
+    }
+
+    @Bean
+    public DeleteExpenseUseCase deleteExpenseUseCase(
+            ExpenseRepository repository,
+            ProjectAccessPort projectAccessPort
+    ) {
+        return new DeleteExpenseUseCase(repository, projectAccessPort);
+    }
+
+    @Bean
+    public UpdateExpenseUseCase updateExpenseUseCase(
+            ExpenseRepository repository,
+            ProjectAccessPort projectAccessPort
+    ) {
+        return new UpdateExpenseUseCase(repository, projectAccessPort);
     }
 }

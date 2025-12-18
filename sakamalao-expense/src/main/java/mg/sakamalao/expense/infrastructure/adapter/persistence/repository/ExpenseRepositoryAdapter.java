@@ -26,10 +26,12 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
         entity.setAmount(expense.getAmount());
         entity.setDate(expense.getDate());
         entity.setCreatedDate(expense.getCreatedDate());
+        entity.setUpdatedDate(expense.getUpdatedDate());
         entity.setCategory(expense.getCategory());
         entity.setDescription(expense.getDescription());
         entity.setProjectId(expense.getProjectId());
         entity.setCreatedByUserId(expense.getCreatedByUserId());
+        entity.setUpdatedByUserId(expense.getUpdatedByUserId());
 
         ExpenseDbEntity saved = repository.save(entity);
         return mapToDomain(saved);

@@ -21,17 +21,20 @@ public class UpdateExpenseUseCase {
     }
 
     public Expense update(UpdateExpenseInput input, UUID userId) {
-
+        FieldValidator.notNull("input", input);
         FieldValidator.notNull("expenseId", input.expenseId());
+        FieldValidator.required("name", input.name());
+        FieldValidator.notNull("projectId", input.projectId());
+        FieldValidator.nonNegative("amount", input.amount());
 
         Expense expense = expenseRepository.findById(input.expenseId())
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Expense not found")
+                     new EntityNotFoundException("Expense with id=%s not found".formatted(input.expenseId()))
                 );
 
         boolean hasAccess = projectAccessPort.hasAccess(userId, expense.getProjectId());
         if (!hasAccess) {
-            throw new EntityNotFoundException("Expense not found");
+            throw new EntityNotFoundException("Expense with id=%s not found".formatted(input.expenseId()));
         }
 
         Expense updated = new Expense(

@@ -1,5 +1,6 @@
 package mg.sakamalao.auth.infrastructure.adapter.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +36,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         user, null, List.of(new SimpleGrantedAuthority("ROLE_" + user.role().name()))
                 );
                 SecurityContextHolder.getContext().setAuthentication(auth);
+            }  catch (ExpiredJwtException e) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
+                return;
             } catch (Exception ex) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
                 return;
