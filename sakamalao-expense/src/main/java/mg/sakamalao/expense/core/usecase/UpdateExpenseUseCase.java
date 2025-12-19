@@ -39,6 +39,7 @@ public class UpdateExpenseUseCase {
 
         Expense updated = new Expense(
                 input.expenseId(),
+                expense.getProjectId(),
                 input.name(),
                 input.description(),
                 input.category(),
@@ -46,7 +47,6 @@ public class UpdateExpenseUseCase {
                 input.date(),
                 expense.getCreatedDate(), // unchanged
                 LocalDate.now(), // updated date
-                expense.getProjectId(),
                 expense.getCreatedByUserId(),
                 userId
         );

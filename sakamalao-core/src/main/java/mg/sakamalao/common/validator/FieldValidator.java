@@ -17,13 +17,13 @@ public class FieldValidator {
 
         if (value instanceof BigDecimal bd) {
             if (bd.compareTo(BigDecimal.ZERO) < 0) {
-                throw new InvalidFieldException(field);
+                throw new InvalidFieldException("%s can not be negative".formatted(field));
             }
             return;
         }
 
         if (value.doubleValue() < 0) {
-            throw new InvalidFieldException(field);
+            throw new InvalidFieldException("%s can not be negative".formatted(field));
         }
     }
 

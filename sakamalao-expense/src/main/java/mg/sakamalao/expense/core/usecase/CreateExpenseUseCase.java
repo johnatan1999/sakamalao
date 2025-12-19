@@ -35,6 +35,7 @@ public class CreateExpenseUseCase {
         }
         Expense expense = new Expense(
                 null,
+                input.projectId(),
                 input.name(),
                 input.description(),
                 input.category(),
@@ -42,7 +43,6 @@ public class CreateExpenseUseCase {
                 input.date() != null ? input.date() : LocalDate.now(),
                 LocalDate.now(),
                 null,
-                input.projectId(),
                 userId,
                 null
         );

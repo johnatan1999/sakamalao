@@ -5,14 +5,14 @@ import mg.sakamalao.common.core.domain.entity.Expense;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.expense.infrastructure.adapter.persistence.entity.ExpenseDbEntity;
 import mg.sakamalao.expense.infrastructure.adapter.persistence.jpa.ExpenseJpaRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class ExpenseRepositoryAdapter implements ExpenseRepository {
 
@@ -57,6 +57,7 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
     private Expense mapToDomain(ExpenseDbEntity entity) {
         return new Expense(
                 entity.getId(),
+                entity.getProjectId(),
                 entity.getName(),
                 entity.getDescription(),
                 entity.getCategory(),
@@ -64,7 +65,6 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
                 entity.getDate(),
                 entity.getCreatedDate(),
                 entity.getUpdatedDate(),
-                entity.getProjectId(),
                 entity.getCreatedByUserId(),
                 entity.getUpdatedByUserId()
         );

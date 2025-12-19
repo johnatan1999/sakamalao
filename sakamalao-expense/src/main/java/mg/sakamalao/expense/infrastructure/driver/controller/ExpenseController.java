@@ -12,6 +12,7 @@ import mg.sakamalao.expense.core.usecase.DeleteExpenseUseCase;
 import mg.sakamalao.expense.core.usecase.ListExpensesUseCase;
 import mg.sakamalao.expense.core.usecase.UpdateExpenseUseCase;
 import mg.sakamalao.expense.infrastructure.driver.entity.UpdateExpenseRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,9 @@ public class ExpenseController extends BaseController {
     private final UpdateExpenseUseCase updateExpenseUseCase;
 
     @PostMapping
-    public Expense create(@RequestBody ExpenseInput input, @CurrentUser User user) {
-        return createExpenseUseCase.create(input, user.id());
+    public ResponseEntity<Expense> create(@RequestBody ExpenseInput input, @CurrentUser User user) {
+        var expense = createExpenseUseCase.create(input, user.id());
+        return ResponseEntity.status(HttpStatus.CREATED).body(expense);
     }
 
     @GetMapping("/project/{projectId}")
