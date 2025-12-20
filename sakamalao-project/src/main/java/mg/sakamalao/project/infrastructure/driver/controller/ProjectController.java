@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -46,7 +47,7 @@ public class ProjectController extends BaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResponse> findById(
-            @PathVariable("id") String id,
+            @PathVariable("id") UUID id,
             @CurrentUser User user
     ) {
         return findByIdProjectUseCase.findById(user.id(), id)
@@ -57,7 +58,7 @@ public class ProjectController extends BaseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable("id") String id,
+            @PathVariable("id") UUID id,
             @CurrentUser User user
     ) {
         deleteProjectUseCase.delete(user.id(), id);

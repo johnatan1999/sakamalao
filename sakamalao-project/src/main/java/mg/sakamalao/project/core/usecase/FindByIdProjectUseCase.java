@@ -12,7 +12,7 @@ import java.util.UUID;
 public class FindByIdProjectUseCase {
     private final ProjectRepository repository;
 
-    public Optional<Project> findById(UUID userId, String id) {
+    public Optional<Project> findById(UUID userId, UUID id) {
         var result = repository.findById(id);
         if (result.isPresent() && !result.get().getOwerId().equals(userId)) {
             throw new EntityNotFoundException(

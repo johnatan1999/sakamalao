@@ -13,7 +13,7 @@ import java.util.UUID;
 public class DeleteProjectUseCase {
     private final ProjectRepository repository;
 
-    public void delete(UUID userId, String projectId) {
+    public void delete(UUID userId, UUID projectId) {
         Objects.requireNonNull(projectId, "Id can not be null");
         Optional<Project> project = repository.findById(projectId);
         if (project.isEmpty()) {

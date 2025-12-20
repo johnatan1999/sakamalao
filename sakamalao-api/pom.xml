@@ -50,6 +50,11 @@
             <version>${parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>mg.sakamalao</groupId>
+            <artifactId>sakamalao-dashboard</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>compile</scope>

@@ -10,6 +10,6 @@ import java.util.UUID;
 public interface ProjectRepository {
     Project save(ProjectInput project);
     List<Project> find(UUID ownerId, String criteria);
-    void delete(String projectId);
-    Optional<Project> findById(String id);
+    void delete(UUID projectId);
+    Optional<Project> findById(UUID id);
 }

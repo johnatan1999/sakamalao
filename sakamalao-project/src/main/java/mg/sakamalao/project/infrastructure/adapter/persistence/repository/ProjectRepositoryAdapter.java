@@ -31,14 +31,14 @@ public class ProjectRepositoryAdapter implements ProjectRepository {
     }
 
     @Override
-    public void delete(String projectId) {
-        repository.deleteById(UUID.fromString(projectId));
+    public void delete(UUID projectId) {
+        repository.deleteById(projectId);
     }
 
     @Override
-    public Optional<Project> findById(String id) {
+    public Optional<Project> findById(UUID id) {
         try {
-            return repository.findById(UUID.fromString(id)).map(ProjectMapper::fromDbEntity);
+            return repository.findById(id).map(ProjectMapper::fromDbEntity);
         } catch (IllegalArgumentException ex) {
             return Optional.empty();
         }

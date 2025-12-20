@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "mg.sakamalao.project",
         "mg.sakamalao.expense",
         "mg.sakamalao.income",
+        "mg.sakamalao.dashboard",
         "mg.sakamalao.common"
 })
 public class SakamalaoApi {
