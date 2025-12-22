@@ -5,7 +5,7 @@ import mg.sakamalao.auth.core.repository.TokenGenerator;
 import mg.sakamalao.auth.core.repository.UserRepository;
 import mg.sakamalao.common.core.domain.entity.User;
 import mg.sakamalao.common.core.domain.exception.AuthenticationException;
-import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
+import mg.sakamalao.common.validator.FieldValidator;
 
 public class AuthenticateUserUseCase {
     private final UserRepository repository;
@@ -19,9 +19,11 @@ public class AuthenticateUserUseCase {
     }
 
     public String authenticate(String username, String password) {
+        FieldValidator.required("username", username);
+        FieldValidator.required("password", password);
         User user = repository.findByUsername(username)
                 .orElseGet(() -> repository.findByEmail(username)
-                        .orElseThrow(() -> new EntityNotFoundException("User not found")));
+                        .orElseThrow(() -> new AuthenticationException("Invalid credentials")));
 
         if (!passwordValidator.validate(password, user.password())) {
             throw new AuthenticationException("Invalid credentials");
