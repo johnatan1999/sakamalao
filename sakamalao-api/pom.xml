@@ -36,6 +36,11 @@
         </dependency>
         <dependency>
             <groupId>mg.sakamalao</groupId>
+            <artifactId>sakamalao-cms</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mg.sakamalao</groupId>
             <artifactId>sakamalao-employee</artifactId>
             <version>${parent.version}</version>
         </dependency>

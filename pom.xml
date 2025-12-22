@@ -18,6 +18,7 @@
         <module>sakamalao-api</module>
         <module>sakamalao-coverage</module>
         <module>sakamalao-auth</module>
+        <module>sakamalao-cms</module>
     </modules>
 
     <properties>
