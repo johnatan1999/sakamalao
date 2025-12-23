@@ -2,6 +2,7 @@ package mg.sakamalao.project.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Project;
+import mg.sakamalao.common.core.domain.enums.EntityStatus;
 import mg.sakamalao.project.core.repository.ProjectRepository;
 import mg.sakamalao.project.infrastructure.adapter.persistence.jpa.ProjectJpaRepository;
 import mg.sakamalao.project.infrastructure.adapter.persistence.mapper.ProjectMapper;
@@ -26,7 +27,7 @@ public class ProjectRepositoryAdapter implements ProjectRepository {
 
     @Override
     public List<Project> find(UUID ownerId, String criteria) {
-        return repository.findAllByOwnerId(ownerId).stream().map(ProjectMapper::fromDbEntity).toList();
+        return repository.findAllByOwnerIdAndStatusNot(ownerId, EntityStatus.DELETED).stream().map(ProjectMapper::fromDbEntity).toList();
     }
 
     @Override

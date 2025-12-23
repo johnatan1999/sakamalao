@@ -37,7 +37,9 @@ public class UpdateProjectUseCase {
         p.setBudget(input.budget());
         p.setDescription(input.description());
         p.setName(input.name());
-        p.setStartDate(input.startDate());
+        if (input.startDate() != null) {
+            p.setStartDate(input.startDate());
+        }
 
         return repository.save(p);
     }

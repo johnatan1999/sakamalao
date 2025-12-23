@@ -8,13 +8,13 @@ public class ProjectMapper {
 
     public static ProjectDbEntity toDbEntity(Project project) {
         return  new ProjectDbEntity(
-                null,
+                project.getId(),
                 project.getName(),
                 project.getDescription(),
                 project.getBudget(),
                 project.getStartDate(),
                 project.getEndDate(),
-                EntityStatus.CREATED,
+                project.getStatus() != null ? project.getStatus() : EntityStatus.CREATED,
                 project.getOwerId()
         );
     }
