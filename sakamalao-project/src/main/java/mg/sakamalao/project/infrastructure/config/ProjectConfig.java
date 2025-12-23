@@ -27,17 +27,17 @@ public class ProjectConfig {
     }
 
     @Bean
-    public DeleteProjectUseCase deleteProjectUseCase(ProjectRepository repository, ProjectAccessPort projectAccessPort) {
+    public DeleteProjectUseCase deleteProjectUseCase(ProjectRepository repository) {
         return new DeleteProjectUseCase(repository);
     }
 
     @Bean
-    public FindByIdProjectUseCase findByIdProjectUseCase(ProjectRepository repository, ProjectAccessPort projectAccessPort) {
+    public FindByIdProjectUseCase findByIdProjectUseCase(ProjectRepository repository) {
         return new FindByIdProjectUseCase(repository);
     }
 
     @Bean
-    public FindProjectUseCase findProjectUseCase(ProjectRepository repository, ProjectAccessPort projectAccessPort) {
+    public FindProjectUseCase findProjectUseCase(ProjectRepository repository) {
         return new FindProjectUseCase(repository);
     }
 
