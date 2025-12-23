@@ -2,7 +2,6 @@ package mg.sakamalao.project.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Project;
-import mg.sakamalao.common.core.domain.input.ProjectInput;
 import mg.sakamalao.project.core.repository.ProjectRepository;
 import mg.sakamalao.project.infrastructure.adapter.persistence.jpa.ProjectJpaRepository;
 import mg.sakamalao.project.infrastructure.adapter.persistence.mapper.ProjectMapper;
@@ -19,7 +18,7 @@ public class ProjectRepositoryAdapter implements ProjectRepository {
     private final ProjectJpaRepository repository;
 
     @Override
-    public Project save(ProjectInput project) {
+    public Project save(Project project) {
         var p = ProjectMapper.toDbEntity(project);
         var newProject = repository.save(p);
         return ProjectMapper.fromDbEntity(newProject);

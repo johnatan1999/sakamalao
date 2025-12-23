@@ -24,7 +24,7 @@ public class CreateProjectUseCase {
             throw new MissingFieldException("Project", "name");
         }
 
-        Project p = repository.save(new ProjectInput(
+        Project p = repository.save(new Project(
                 project.name(),
                 project.description(),
                 ownerId,

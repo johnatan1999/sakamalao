@@ -2,21 +2,20 @@ package mg.sakamalao.project.infrastructure.adapter.persistence.mapper;
 
 import mg.sakamalao.common.core.domain.entity.Project;
 import mg.sakamalao.common.core.domain.enums.EntityStatus;
-import mg.sakamalao.common.core.domain.input.ProjectInput;
 import mg.sakamalao.project.infrastructure.adapter.persistence.entity.ProjectDbEntity;
 
 public class ProjectMapper {
 
-    public static ProjectDbEntity toDbEntity(ProjectInput project) {
+    public static ProjectDbEntity toDbEntity(Project project) {
         return  new ProjectDbEntity(
                 null,
-                project.name(),
-                project.description(),
-                project.budget(),
-                project.startDate(),
-                project.endDate(),
+                project.getName(),
+                project.getDescription(),
+                project.getBudget(),
+                project.getStartDate(),
+                project.getEndDate(),
                 EntityStatus.CREATED,
-                project.ownerId()
+                project.getOwerId()
         );
     }
 

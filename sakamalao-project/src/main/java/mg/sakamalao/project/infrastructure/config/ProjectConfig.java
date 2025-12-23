@@ -1,11 +1,9 @@
 package mg.sakamalao.project.infrastructure.config;
 
+import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.project.core.repository.ProjectMemberRepository;
 import mg.sakamalao.project.core.repository.ProjectRepository;
-import mg.sakamalao.project.core.usecase.CreateProjectUseCase;
-import mg.sakamalao.project.core.usecase.DeleteProjectUseCase;
-import mg.sakamalao.project.core.usecase.FindByIdProjectUseCase;
-import mg.sakamalao.project.core.usecase.FindProjectUseCase;
+import mg.sakamalao.project.core.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,17 +19,25 @@ public class ProjectConfig {
     }
 
     @Bean
-    public DeleteProjectUseCase deleteProjectUseCase(ProjectRepository repository) {
+    public UpdateProjectUseCase updateProjectUseCase(
+            ProjectRepository repository,
+            ProjectAccessPort projectAccessPort
+    ) {
+        return new UpdateProjectUseCase(repository, projectAccessPort);
+    }
+
+    @Bean
+    public DeleteProjectUseCase deleteProjectUseCase(ProjectRepository repository, ProjectAccessPort projectAccessPort) {
         return new DeleteProjectUseCase(repository);
     }
 
     @Bean
-    public FindByIdProjectUseCase findByIdProjectUseCase(ProjectRepository repository) {
+    public FindByIdProjectUseCase findByIdProjectUseCase(ProjectRepository repository, ProjectAccessPort projectAccessPort) {
         return new FindByIdProjectUseCase(repository);
     }
 
     @Bean
-    public FindProjectUseCase findProjectUseCase(ProjectRepository repository) {
+    public FindProjectUseCase findProjectUseCase(ProjectRepository repository, ProjectAccessPort projectAccessPort) {
         return new FindProjectUseCase(repository);
     }
 

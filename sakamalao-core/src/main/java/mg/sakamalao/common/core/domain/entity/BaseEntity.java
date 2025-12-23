@@ -9,6 +9,6 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public abstract class BaseEntity {
-    private UUID id;
-    private EntityStatus status;
+    protected UUID id;
+    protected EntityStatus status;
 }

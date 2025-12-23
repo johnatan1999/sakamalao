@@ -5,11 +5,9 @@ import mg.sakamalao.common.core.domain.entity.Project;
 import mg.sakamalao.common.core.domain.entity.User;
 import mg.sakamalao.common.infrastructure.driver.BaseController;
 import mg.sakamalao.common.infrastructure.driver.domain.CurrentUser;
-import mg.sakamalao.project.core.usecase.CreateProjectUseCase;
-import mg.sakamalao.project.core.usecase.DeleteProjectUseCase;
-import mg.sakamalao.project.core.usecase.FindByIdProjectUseCase;
-import mg.sakamalao.project.core.usecase.FindProjectUseCase;
+import mg.sakamalao.project.core.usecase.*;
 import mg.sakamalao.project.infrastructure.driver.entity.request.CreateProjectRequest;
+import mg.sakamalao.project.infrastructure.driver.entity.request.UpdateProjectRequest;
 import mg.sakamalao.project.infrastructure.driver.entity.response.ProjectResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProjectController extends BaseController {
     private final CreateProjectUseCase createProjectUseCase;
+    private final UpdateProjectUseCase updateProjectUseCase;
     private final DeleteProjectUseCase deleteProjectUseCase;
     private final FindProjectUseCase findProjectUseCase;
     private final FindByIdProjectUseCase findByIdProjectUseCase;
@@ -32,6 +31,16 @@ public class ProjectController extends BaseController {
             @CurrentUser User user
     ) {
         Project created = createProjectUseCase.create(user.id(), request.toProjectInput());
+        return ResponseEntity.status(201).body(ProjectResponse.from(created));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectResponse> update(
+            @PathVariable UUID id,
+            @RequestBody UpdateProjectRequest request,
+            @CurrentUser User user
+    ) {
+        Project created = updateProjectUseCase.update(id, request.toProjectInput(), user.id());
         return ResponseEntity.status(201).body(ProjectResponse.from(created));
     }
 
