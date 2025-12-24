@@ -1,6 +1,7 @@
 package mg.sakamalao.auth.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
+import mg.sakamalao.auth.core.domain.security.PublicEndpoint;
 import mg.sakamalao.auth.core.usecase.AuthenticateUserUseCase;
 import mg.sakamalao.auth.core.usecase.RegisterUserUseCase;
 import mg.sakamalao.auth.infrastructure.driver.entity.request.LoginRequest;
@@ -21,12 +22,14 @@ public class AuthController {
     private final AuthenticateUserUseCase useCase;
     private final RegisterUserUseCase registerUserUseCase;
 
+    @PublicEndpoint
     @PostMapping("/login")
     public TokenResponse login(@RequestBody LoginRequest req) {
         String token = useCase.authenticate(req.username(), req.password());
         return new TokenResponse(token);
     }
 
+    @PublicEndpoint
     @PostMapping("/register")
     public UserResponse register(@RequestBody RegistrationRequest req) {
         User newUser = registerUserUseCase.register(req.toUserInput());
