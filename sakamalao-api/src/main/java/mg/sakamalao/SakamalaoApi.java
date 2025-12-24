@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "mg.sakamalao.income",
         "mg.sakamalao.dashboard",
         "mg.sakamalao.common",
+        "mg.sakamalao.io",
         "mg.sakamalao.cms"
 })
 public class SakamalaoApi {

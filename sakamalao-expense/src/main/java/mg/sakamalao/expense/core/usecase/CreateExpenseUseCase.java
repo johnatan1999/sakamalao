@@ -33,19 +33,16 @@ public class CreateExpenseUseCase {
         if (!hasAccess) {
             throw new EntityNotFoundException("Project with id=%s not found".formatted(input.projectId()));
         }
-        Expense expense = new Expense(
-                null,
-                input.projectId(),
-                input.name(),
-                input.description(),
-                input.category(),
-                input.amount(),
-                input.date() != null ? input.date() : LocalDate.now(),
-                LocalDate.now(),
-                null,
-                userId,
-                null
-        );
+        Expense expense = Expense.builder()
+                .projectId(input.projectId())
+                .name(input.name())
+                .description(input.description())
+                .category(input.category())
+                .amount(input.amount())
+                .date(input.date() != null ? input.date() : LocalDate.now())
+                .createdByUserId(userId)
+                .createdDate(LocalDate.now())
+                .build();
 
         return repository.save(expense);
     }

@@ -37,19 +37,19 @@ public class UpdateExpenseUseCase {
             throw new EntityNotFoundException("Expense with id=%s not found".formatted(input.expenseId()));
         }
 
-        Expense updated = new Expense(
-                input.expenseId(),
-                expense.getProjectId(),
-                input.name(),
-                input.description(),
-                input.category(),
-                input.amount(),
-                input.date(),
-                expense.getCreatedDate(), // unchanged
-                LocalDate.now(), // updated date
-                expense.getCreatedByUserId(),
-                userId
-        );
+        Expense updated = Expense.builder()
+                .id(input.expenseId())
+                .projectId(expense.getProjectId())
+                .name(input.name())
+                .description(input.description())
+                .category(input.category())
+                .amount(input.amount())
+                .date(input.date())
+                .createdByUserId(expense.getCreatedByUserId())
+                .createdDate(expense.getCreatedDate())
+                .updatedDate(LocalDate.now())
+                .updatedByUserId(userId)
+                .build();
 
         return expenseRepository.save(updated);
     }

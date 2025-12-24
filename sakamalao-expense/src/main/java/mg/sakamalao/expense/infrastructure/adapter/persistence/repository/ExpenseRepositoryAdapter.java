@@ -54,19 +54,19 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
         repository.deleteById(id);
     }
 
-    private Expense mapToDomain(ExpenseDbEntity entity) {
-        return new Expense(
-                entity.getId(),
-                entity.getProjectId(),
-                entity.getName(),
-                entity.getDescription(),
-                entity.getCategory(),
-                entity.getAmount(),
-                entity.getDate(),
-                entity.getCreatedDate(),
-                entity.getUpdatedDate(),
-                entity.getCreatedByUserId(),
-                entity.getUpdatedByUserId()
-        );
+    private Expense mapToDomain(ExpenseDbEntity e) {
+        return Expense.builder()
+                .id(e.getId())
+                .projectId(e.getProjectId())
+                .name(e.getName())
+                .description(e.getDescription())
+                .category(e.getCategory())
+                .amount(e.getAmount())
+                .date(e.getDate())
+                .createdDate(e.getCreatedDate())
+                .createdByUserId(e.getCreatedByUserId())
+                .updatedDate(e.getUpdatedDate())
+                .updatedByUserId(e.getUpdatedByUserId())
+                .build();
     }
 }

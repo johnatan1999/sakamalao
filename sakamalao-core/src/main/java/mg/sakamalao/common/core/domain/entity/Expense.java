@@ -2,7 +2,9 @@ package mg.sakamalao.common.core.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import mg.sakamalao.common.core.domain.enums.ExpenseCategory;
 
 import java.time.LocalDate;
@@ -10,8 +12,10 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@SuperBuilder
 @AllArgsConstructor
-public class Expense {
+@EqualsAndHashCode(callSuper = true)
+public class Expense extends AuditableEntity {
     private UUID id;
     private UUID projectId;
     private String name;
@@ -19,8 +23,4 @@ public class Expense {
     private ExpenseCategory category;
     private double amount;
     private LocalDate date;
-    private LocalDate createdDate;
-    private LocalDate updatedDate;
-    private UUID createdByUserId;
-    private UUID updatedByUserId;
 }

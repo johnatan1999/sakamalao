@@ -1,5 +1,6 @@
 package mg.sakamalao.income.infrastructure.adapter.persistence.repository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Income;
 import mg.sakamalao.income.core.repository.IncomeRepository;
@@ -18,6 +19,7 @@ public class IncomeRepositoryAdapter implements IncomeRepository {
 
     private final IncomeJpaRepository repository;
 
+    @Transactional
     @Override
     public Income save(Income income) {
         IncomeDbEntity entity = new IncomeDbEntity();
