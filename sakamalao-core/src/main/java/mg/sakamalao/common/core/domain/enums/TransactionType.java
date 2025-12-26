@@ -1,5 +1,8 @@
-package mg.sakamalao.io.core.domain;
+package mg.sakamalao.common.core.domain.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum TransactionType {
     INCOME("income"),
     EXPENSE("expense");
@@ -10,7 +13,4 @@ public enum TransactionType {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }

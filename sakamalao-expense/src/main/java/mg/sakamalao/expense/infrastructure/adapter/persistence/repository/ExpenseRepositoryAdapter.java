@@ -55,6 +55,9 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
     }
 
     private Expense mapToDomain(ExpenseDbEntity e) {
+        if (e == null) {
+            return null;
+        }
         return Expense.builder()
                 .id(e.getId())
                 .projectId(e.getProjectId())

@@ -1,6 +1,7 @@
 package mg.sakamalao.io.core.domain;
 
 import lombok.Data;
+import mg.sakamalao.common.core.domain.enums.TransactionType;
 
 import java.time.LocalDate;
 

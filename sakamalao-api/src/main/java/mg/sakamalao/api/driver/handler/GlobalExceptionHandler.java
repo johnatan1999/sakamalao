@@ -14,6 +14,13 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
     public record ErrorResponse(String code, String message, LocalDateTime timestamp) {}
 
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleResourceAlreadyExists(ResourceAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                buildErrorResponse("MISSING_FIELD", ex)
+        );
+    }
+
     @ExceptionHandler(MissingFieldException.class)
     public ResponseEntity<ErrorResponse> handleMissingField(MissingFieldException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(

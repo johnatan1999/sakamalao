@@ -1,31 +1,34 @@
 package mg.sakamalao.cms.core.usecase;
 
-import mg.sakamalao.cms.core.domain.TransactionCategory;
 import mg.sakamalao.cms.core.repository.TransactionCategoryRepository;
-import mg.sakamalao.common.core.domain.enums.TransactionType;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
+import mg.sakamalao.common.validator.FieldValidator;
 
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-public class ListTransactionCategoriesUseCase {
+public class DeleteTransactionCategoryUseCase {
     private final TransactionCategoryRepository repository;
     private final ProjectAccessPort projectAccessPort;
 
-    public ListTransactionCategoriesUseCase(TransactionCategoryRepository repository, ProjectAccessPort projectAccessPort) {
+    public DeleteTransactionCategoryUseCase(TransactionCategoryRepository repository, ProjectAccessPort projectAccessPort) {
         this.repository = repository;
         this.projectAccessPort = projectAccessPort;
     }
 
-    public Map<TransactionType, List<TransactionCategory>> findByProject(UUID projectId, UUID userId) {
+    public void delete(UUID userId, UUID projectId, UUID categoryId) {
+        FieldValidator.notNull("projectId", projectId);
+        FieldValidator.notNull("categoryId", categoryId);
+
         var hasAccess = projectAccessPort.hasAccess(userId, projectId);
-        // Throw a not found exception to avoid telling
-        // the user that the project exists but that they cannot access it
         if (!hasAccess) {
             throw new EntityNotFoundException("Project with id=%s not found".formatted(projectId));
         }
-        return repository.getTransactionCategories(projectId);
+
+        repository.findById(categoryId).orElseThrow(() ->
+                new EntityNotFoundException("Category with id=%s not found".formatted(categoryId))
+        );
+
+        repository.deleteById(categoryId);
     }
 }
