@@ -35,7 +35,7 @@ public class CreateTransactionCategoryUseCase {
 
         var category = repository.findByProjectIdAndNameAndType(projectId, input.name(), input.type());
         if (category.isPresent()) {
-            throw new ResourceAlreadyExistsException("Category with name=%s already exists for this project");
+            throw new ResourceAlreadyExistsException("Category with name=%s already exists for this project".formatted(input.name()));
         }
 
         return repository.save(new TransactionCategory(
