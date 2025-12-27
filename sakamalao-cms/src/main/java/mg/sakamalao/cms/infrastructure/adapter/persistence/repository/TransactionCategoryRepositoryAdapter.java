@@ -35,8 +35,8 @@ public class TransactionCategoryRepositoryAdapter implements TransactionCategory
     }
 
     @Override
-    public Optional<TransactionCategory> findByProjectIdAndName(UUID projectId, String name) {
-        return repository.findByProjectIdAndName(projectId, name).map(TransactionCategoryMapper::fromDbEntity);
+    public Optional<TransactionCategory> findByProjectIdAndNameAndType(UUID projectId, String name, TransactionType type) {
+        return repository.findByProjectIdAndNameAndTransactionType(projectId, name, type).map(TransactionCategoryMapper::fromDbEntity);
     }
 
     @Override

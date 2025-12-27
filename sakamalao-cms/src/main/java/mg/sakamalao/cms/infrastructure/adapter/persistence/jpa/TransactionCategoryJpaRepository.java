@@ -12,5 +12,5 @@ import java.util.UUID;
 @Repository
 public interface TransactionCategoryJpaRepository extends JpaRepository<TransactionCategoryDbEntity, UUID> {
     List<TransactionCategoryDbEntity> findAllByTransactionType(TransactionType type);
-    Optional<TransactionCategoryDbEntity> findByProjectIdAndName(UUID projectId, String name);
+    Optional<TransactionCategoryDbEntity> findByProjectIdAndNameAndTransactionType(UUID projectId, String name, TransactionType type);
 }

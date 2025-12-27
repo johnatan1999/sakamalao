@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface TransactionCategoryRepository {
     TransactionCategory save(TransactionCategory input);
     Optional<TransactionCategory> findById(UUID uuid);
-    Optional<TransactionCategory> findByProjectIdAndName(UUID projectId, String name);
+    Optional<TransactionCategory> findByProjectIdAndNameAndType(UUID projectId, String name, TransactionType type);
     Map<TransactionType, List<TransactionCategory>> getTransactionCategories(UUID projectId);
 
     void deleteById(UUID categoryId);

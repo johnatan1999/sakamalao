@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(
         name = "transaction_category",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"project_id", "name"})
+                @UniqueConstraint(columnNames = {"project_id", "name", "transaction_type"})
         }
 )
 public class TransactionCategoryDbEntity {
@@ -32,7 +32,7 @@ public class TransactionCategoryDbEntity {
     @Column(name = "project_id", nullable = false)
     private UUID projectId;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "transaction_type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 

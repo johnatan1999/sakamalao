@@ -20,6 +20,7 @@
         <module>sakamalao-auth</module>
         <module>sakamalao-cms</module>
         <module>sakamalao-io</module>
+        <module>sakamalao-liquibase</module>
     </modules>
 
     <properties>

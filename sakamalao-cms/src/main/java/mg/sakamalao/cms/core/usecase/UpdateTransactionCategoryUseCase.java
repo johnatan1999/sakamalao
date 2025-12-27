@@ -44,7 +44,7 @@ public class UpdateTransactionCategoryUseCase {
         );
 
         // Validate name
-        var category = repository.findByProjectIdAndName(projectId, input.name());
+        var category = repository.findByProjectIdAndNameAndType(projectId, input.name(), input.type());
         if (category.isPresent()) {
             throw new ResourceAlreadyExistsException("Category with name=%s already exists for this project");
         }
