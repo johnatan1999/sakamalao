@@ -41,9 +41,9 @@ public class TransactionCategoryRepositoryAdapter implements TransactionCategory
 
     @Override
     public Map<TransactionType, List<TransactionCategory>> getTransactionCategories(UUID projectId) {
-        var incomes = repository.findAllByTransactionType(TransactionType.INCOME)
+        var incomes = repository.findAllByProjectIdAndTransactionType(projectId, TransactionType.INCOME)
                 .stream().map(TransactionCategoryMapper::fromDbEntity).toList();
-        var expenses = repository.findAllByTransactionType(TransactionType.EXPENSE)
+        var expenses = repository.findAllByProjectIdAndTransactionType(projectId, TransactionType.EXPENSE)
                 .stream().map(TransactionCategoryMapper::fromDbEntity).toList();
         var result = new HashMap<TransactionType, List<TransactionCategory>>();
         result.put(TransactionType.INCOME, incomes);
