@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public record UpdateProjectRequest(
         String name,
         String description,
+        String currency,
         double budget,
         LocalDate startDate
 ) {
@@ -14,6 +15,7 @@ public record UpdateProjectRequest(
         return new ProjectInput(
                 name,
                 description,
+                currency,
                 null,
                 budget,
                 startDate,

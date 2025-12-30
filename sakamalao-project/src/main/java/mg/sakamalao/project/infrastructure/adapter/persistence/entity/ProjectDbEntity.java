@@ -30,6 +30,9 @@ public class ProjectDbEntity  {
     @Column(length = 2000)
     private String description;
 
+    @Column(length = 10)
+    private String currency;
+
     @Column(nullable = false)
     private double budget;
 

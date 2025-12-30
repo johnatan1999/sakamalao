@@ -11,6 +11,7 @@ public class ProjectMapper {
                 project.getId(),
                 project.getName(),
                 project.getDescription(),
+                project.getCurrency(),
                 project.getBudget(),
                 project.getStartDate(),
                 project.getEndDate(),
@@ -23,6 +24,7 @@ public class ProjectMapper {
         var p = new Project(
                 project.getName(),
                 project.getDescription(),
+                project.getCurrency(),
                 project.getOwnerId(),
                 project.getBudget(),
                 project.getStartDate(),

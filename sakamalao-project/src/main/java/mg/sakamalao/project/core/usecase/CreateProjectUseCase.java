@@ -27,6 +27,7 @@ public class CreateProjectUseCase {
         Project p = repository.save(new Project(
                 project.name(),
                 project.description(),
+                project.currency(),
                 ownerId,
                 project.budget(),
                 resolveStartDate(project.startDate()),

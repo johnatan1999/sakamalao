@@ -37,6 +37,7 @@ public class UpdateProjectUseCase {
         p.setBudget(input.budget());
         p.setDescription(input.description());
         p.setName(input.name());
+        p.setCurrency(input.currency());
         if (input.startDate() != null) {
             p.setStartDate(input.startDate());
         }
