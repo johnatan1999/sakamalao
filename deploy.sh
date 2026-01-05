@@ -48,6 +48,8 @@ IMAGE_NAME="sakamalao-backend"
 TAR_FILE="${IMAGE_NAME}.tar"
 COMPOSE_FILE="docker-compose.yml"
 
+mvn clean package -DskipTests
+
 echo "📁 Ensuring local docker directory exists..."
 cd "$LOCAL_DOCKER_DIR"
 
