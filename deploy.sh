@@ -55,17 +55,17 @@ cd "$LOCAL_DOCKER_DIR"
 
 # Optional: build docker images locally
 echo "🐳 Building docker images with docker-compose..."
-# docker-compose build
+ docker-compose build
 
 # Save Docker image to tar
 echo "📦 Saving Docker image $IMAGE_NAME to $TAR_FILE..."
-#docker save -o "$TAR_FILE" "$IMAGE_NAME:latest"
+docker save -o "$TAR_FILE" "$IMAGE_NAME:latest"
 
 # Copy files to remote
 echo "📤 Copying files to remote host $REMOTE_HOST..."
-#scp "$COMPOSE_FILE" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR"
-#scp "$TAR_FILE" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR"
-#scp ../.env $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
+scp "$COMPOSE_FILE" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR"
+scp "$TAR_FILE" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR"
+scp ../.env $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR
 
 # Run commands on remote host
 echo "🖥 Executing deployment on remote host..."
