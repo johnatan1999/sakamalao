@@ -2,16 +2,14 @@
 services:
   backend:
     image: sakamalao-backend:latest
-    build:
-      context: .. # remonte d'un niveau pour inclure sakamalo-api
-      dockerfile: docker/Dockerfile
+#    build:
+#      context: .. # remonte d'un niveau pour inclure sakamalo-api
+#      dockerfile: docker/Dockerfile
     container_name: sakamalao-backend
-    ports:
-      - "8081:8081"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sakamalao_db
-      SPRING_DATASOURCE_USERNAME: sakamalao
-      SPRING_DATASOURCE_PASSWORD: sakamalao
+    networks:
+      - sakamalao-network
+    expose:
+      - "8081"
     env_file:
       - .env
     depends_on:
@@ -29,7 +27,13 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - sakamalao-network
     restart: unless-stopped
 
 volumes:
   db-data:
+
+networks:
+  sakamalao-network:
+    external: true
