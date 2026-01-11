@@ -2,8 +2,6 @@ package mg.sakamalao.io.core.usecase;
 
 import mg.sakamalao.common.core.domain.entity.Expense;
 import mg.sakamalao.common.core.domain.entity.Income;
-import mg.sakamalao.common.core.domain.enums.ExpenseCategory;
-import mg.sakamalao.common.core.domain.enums.IncomeCategory;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
@@ -39,7 +37,7 @@ public class ImportTransactionUseCase {
         List<Income> incomes = transactions.stream()
                 .filter(t -> t.getType().equals(TransactionType.INCOME))
                 .map(t -> (Income) Income.builder()
-                        .category(IncomeCategory.valueOf(t.getCategory()))
+//                        .category(IncomeCategory.valueOf(t.getCategory()))
                         .name(t.getName())
                         .date(t.getDate())
                         .description(t.getDescription())
@@ -52,7 +50,7 @@ public class ImportTransactionUseCase {
         List<Expense> expenses = transactions.stream()
                 .filter(t -> t.getType().equals(TransactionType.EXPENSE))
                 .map(t -> (Expense) Expense.builder()
-                        .category(ExpenseCategory.valueOf(t.getCategory()))
+//                        .category(ExpenseCategory.valueOf(t.getCategory()))
                         .name(t.getName())
                         .date(t.getDate())
                         .description(t.getDescription())

@@ -1,4 +1,4 @@
-package mg.sakamalao.cms.infrastructure.adapter.persistence.entity;
+package mg.sakamalao.common.infrastructure.adapter.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

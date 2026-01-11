@@ -1,13 +1,11 @@
 package mg.sakamalao.expense.core.domain;
 
-import mg.sakamalao.common.core.domain.enums.ExpenseCategory;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
 public record ExpenseInput (
     String name,
-    ExpenseCategory category,
+    UUID categoryId,
     String description,
     double amount,
     LocalDate date,

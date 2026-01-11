@@ -1,8 +1,8 @@
 package mg.sakamalao.cms.core.usecase;
 
-import mg.sakamalao.cms.core.domain.TransactionCategory;
 import mg.sakamalao.cms.core.domain.input.TransactionCategoryInput;
 import mg.sakamalao.cms.core.repository.TransactionCategoryRepository;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.common.core.domain.exception.ResourceAlreadyExistsException;
 import mg.sakamalao.common.core.port.ProjectAccessPort;

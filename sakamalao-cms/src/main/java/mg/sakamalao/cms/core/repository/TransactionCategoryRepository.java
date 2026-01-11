@@ -1,6 +1,6 @@
 package mg.sakamalao.cms.core.repository;
 
-import mg.sakamalao.cms.core.domain.TransactionCategory;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
 
 import java.util.List;

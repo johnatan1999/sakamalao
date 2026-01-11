@@ -1,12 +1,12 @@
 package mg.sakamalao.cms.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.cms.core.domain.TransactionCategory;
 import mg.sakamalao.cms.core.repository.TransactionCategoryRepository;
-import mg.sakamalao.cms.infrastructure.adapter.persistence.entity.TransactionCategoryDbEntity;
-import mg.sakamalao.cms.infrastructure.adapter.persistence.jpa.TransactionCategoryJpaRepository;
 import mg.sakamalao.cms.infrastructure.adapter.persistence.mapper.TransactionCategoryMapper;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
+import mg.sakamalao.common.infrastructure.adapter.entity.TransactionCategoryDbEntity;
+import mg.sakamalao.common.infrastructure.adapter.jpa.TransactionCategoryJpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

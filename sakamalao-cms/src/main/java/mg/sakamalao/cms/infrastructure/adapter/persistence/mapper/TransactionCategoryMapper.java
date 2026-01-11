@@ -1,7 +1,7 @@
 package mg.sakamalao.cms.infrastructure.adapter.persistence.mapper;
 
-import mg.sakamalao.cms.core.domain.TransactionCategory;
-import mg.sakamalao.cms.infrastructure.adapter.persistence.entity.TransactionCategoryDbEntity;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
+import mg.sakamalao.common.infrastructure.adapter.entity.TransactionCategoryDbEntity;
 
 public final class TransactionCategoryMapper {
 

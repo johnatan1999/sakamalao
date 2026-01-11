@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mg.sakamalao.common.core.domain.enums.IncomeCategory;
+import mg.sakamalao.common.infrastructure.adapter.entity.TransactionCategoryDbEntity;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -50,8 +50,9 @@ public class IncomeDbEntity {
     @Column(name = "updated_by_user_id", nullable = true)
     private UUID updatedByUserId;
 
-    @Column(length = 100)
-    private IncomeCategory category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private TransactionCategoryDbEntity category;
 
 }
 

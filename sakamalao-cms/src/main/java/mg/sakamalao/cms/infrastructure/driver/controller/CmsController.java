@@ -1,13 +1,13 @@
 package mg.sakamalao.cms.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
-import mg.sakamalao.cms.core.domain.TransactionCategory;
 import mg.sakamalao.cms.core.domain.input.TransactionCategoryInput;
 import mg.sakamalao.cms.core.usecase.CreateTransactionCategoryUseCase;
 import mg.sakamalao.cms.core.usecase.DeleteTransactionCategoryUseCase;
 import mg.sakamalao.cms.core.usecase.ListTransactionCategoriesUseCase;
 import mg.sakamalao.cms.core.usecase.UpdateTransactionCategoryUseCase;
 import mg.sakamalao.cms.infrastructure.driver.entity.response.ListTransactionCategoryResponse;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.entity.User;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
 import mg.sakamalao.common.infrastructure.driver.domain.CurrentUser;

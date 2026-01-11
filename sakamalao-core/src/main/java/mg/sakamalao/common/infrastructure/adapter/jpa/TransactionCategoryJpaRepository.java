@@ -1,7 +1,7 @@
-package mg.sakamalao.cms.infrastructure.adapter.persistence.jpa;
+package mg.sakamalao.common.infrastructure.adapter.jpa;
 
-import mg.sakamalao.cms.infrastructure.adapter.persistence.entity.TransactionCategoryDbEntity;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
+import mg.sakamalao.common.infrastructure.adapter.entity.TransactionCategoryDbEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

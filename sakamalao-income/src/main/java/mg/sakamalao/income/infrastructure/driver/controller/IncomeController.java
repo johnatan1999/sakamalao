@@ -53,7 +53,7 @@ public class IncomeController extends BaseController {
                 req.name(),
                 req.description(),
                 req.amount(),
-                req.category(),
+                req.categoryId(),
                 req.projectId(),
                 req.date()
         ), user.id());

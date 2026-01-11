@@ -1,6 +1,6 @@
 package mg.sakamalao.cms.infrastructure.driver.entity.response;
 
-import mg.sakamalao.cms.core.domain.TransactionCategory;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 
 import java.util.List;
 

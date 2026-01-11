@@ -1,7 +1,9 @@
 package mg.sakamalao.income.core.usecase;
 
 import mg.sakamalao.common.core.domain.entity.Income;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
+import mg.sakamalao.common.core.port.CategoryAccessPort;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.common.validator.FieldValidator;
 import mg.sakamalao.income.core.domain.UpdateIncomeInput;
@@ -13,10 +15,16 @@ import java.util.UUID;
 public class UpdateIncomeUseCase {
     private final IncomeRepository repository;
     private final ProjectAccessPort projectAccess;
+    private final CategoryAccessPort categoryAccess;
 
-    public UpdateIncomeUseCase(IncomeRepository repository, ProjectAccessPort projectAccess) {
+    public UpdateIncomeUseCase(
+            IncomeRepository repository,
+            ProjectAccessPort projectAccess,
+            CategoryAccessPort categoryAccess
+    ) {
         this.repository = repository;
         this.projectAccess = projectAccess;
+        this.categoryAccess = categoryAccess;
     }
 
     public Income update(UpdateIncomeInput input, UUID userId) {
@@ -36,12 +44,21 @@ public class UpdateIncomeUseCase {
             throw new EntityNotFoundException("Income with id=%s not found".formatted(input.incomeId()));
         }
 
+        var categoryExists = categoryAccess.exists(input.categoryId(), input.projectId());
+        if (!categoryExists) {
+            throw new EntityNotFoundException("Category with id=%s not found".formatted(input.categoryId()));
+        }
+
         Income updated = new Income();
         updated.setId(input.incomeId());
         updated.setProjectId(input.projectId());
         updated.setName(input.name());
         updated.setDescription(input.description());
-        updated.setCategory(input.category());
+        updated.setCategory(
+                TransactionCategory.builder()
+                        .id(input.categoryId())
+                        .build()
+        );
         updated.setAmount(input.amount());
         updated.setDate(input.date());
 

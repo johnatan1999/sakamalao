@@ -1,5 +1,6 @@
 package mg.sakamalao.income.infrastructure.config;
 
+import mg.sakamalao.common.core.port.CategoryAccessPort;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.income.core.repository.IncomeRepository;
 import mg.sakamalao.income.core.usecase.CreateIncomeUseCase;
@@ -15,17 +16,19 @@ public class IncomeConfig {
     @Bean
     public CreateIncomeUseCase createIncomeUseCase(
             IncomeRepository repository,
-            ProjectAccessPort projectAccessPort
+            ProjectAccessPort projectAccessPort,
+            CategoryAccessPort categoryAccessPort
     ) {
-        return new CreateIncomeUseCase(repository, projectAccessPort);
+        return new CreateIncomeUseCase(repository, projectAccessPort, categoryAccessPort);
     }
 
     @Bean
     public UpdateIncomeUseCase updateIncomeUseCase(
             IncomeRepository repository,
-            ProjectAccessPort projectAccessPort
+            ProjectAccessPort projectAccessPort,
+            CategoryAccessPort categoryAccessPort
     ) {
-        return new UpdateIncomeUseCase(repository, projectAccessPort);
+        return new UpdateIncomeUseCase(repository, projectAccessPort, categoryAccessPort);
     }
 
     @Bean

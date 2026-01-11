@@ -1,5 +1,6 @@
 package mg.sakamalao.expense.infrastructure.config;
 
+import mg.sakamalao.common.core.port.CategoryAccessPort;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.expense.core.usecase.CreateExpenseUseCase;
@@ -15,9 +16,10 @@ public class ExpenseConfig {
     @Bean
     public CreateExpenseUseCase createExpenseUseCase(
             ExpenseRepository repository,
-            ProjectAccessPort projectAccessPort
+            ProjectAccessPort projectAccessPort,
+            CategoryAccessPort categoryAccess
     ) {
-        return new CreateExpenseUseCase(repository, projectAccessPort);
+        return new CreateExpenseUseCase(repository, projectAccessPort, categoryAccess);
     }
 
     @Bean
@@ -39,8 +41,9 @@ public class ExpenseConfig {
     @Bean
     public UpdateExpenseUseCase updateExpenseUseCase(
             ExpenseRepository repository,
-            ProjectAccessPort projectAccessPort
+            ProjectAccessPort projectAccessPort,
+            CategoryAccessPort categoryAccess
     ) {
-        return new UpdateExpenseUseCase(repository, projectAccessPort);
+        return new UpdateExpenseUseCase(repository, projectAccessPort, categoryAccess);
     }
 }

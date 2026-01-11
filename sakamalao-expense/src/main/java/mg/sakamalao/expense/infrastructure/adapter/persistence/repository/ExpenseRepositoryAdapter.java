@@ -2,6 +2,9 @@ package mg.sakamalao.expense.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Expense;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
+import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
+import mg.sakamalao.common.infrastructure.adapter.jpa.TransactionCategoryJpaRepository;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.expense.infrastructure.adapter.persistence.entity.ExpenseDbEntity;
 import mg.sakamalao.expense.infrastructure.adapter.persistence.jpa.ExpenseJpaRepository;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 public class ExpenseRepositoryAdapter implements ExpenseRepository {
 
     private final ExpenseJpaRepository repository;
+    private final TransactionCategoryJpaRepository transactionCategory;
 
     @Override
     public Expense save(Expense expense) {
@@ -27,7 +31,11 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
         entity.setDate(expense.getDate());
         entity.setCreatedDate(expense.getCreatedDate());
         entity.setUpdatedDate(expense.getUpdatedDate());
-        entity.setCategory(expense.getCategory());
+
+        var category = transactionCategory.findById(expense.getCategory().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+
+        entity.setCategory(category);
         entity.setDescription(expense.getDescription());
         entity.setProjectId(expense.getProjectId());
         entity.setCreatedByUserId(expense.getCreatedByUserId());
@@ -63,7 +71,15 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
                 .projectId(e.getProjectId())
                 .name(e.getName())
                 .description(e.getDescription())
-                .category(e.getCategory())
+                .category(
+                        TransactionCategory.builder()
+                                .id(e.getCategory().getId())
+                                .type(e.getCategory().getTransactionType())
+                                .name(e.getCategory().getName())
+                                .projectId(e.getCategory().getProjectId())
+                                .createdAt(e.getCategory().getCreatedAt())
+                                .build()
+                )
                 .amount(e.getAmount())
                 .date(e.getDate())
                 .createdDate(e.getCreatedDate())

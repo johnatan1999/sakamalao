@@ -3,6 +3,9 @@ package mg.sakamalao.income.infrastructure.adapter.persistence.repository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Income;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
+import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
+import mg.sakamalao.common.infrastructure.adapter.jpa.TransactionCategoryJpaRepository;
 import mg.sakamalao.income.core.repository.IncomeRepository;
 import mg.sakamalao.income.infrastructure.adapter.persistence.entity.IncomeDbEntity;
 import mg.sakamalao.income.infrastructure.adapter.persistence.jpa.IncomeJpaRepository;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class IncomeRepositoryAdapter implements IncomeRepository {
 
     private final IncomeJpaRepository repository;
+    private final TransactionCategoryJpaRepository transactionCategory;
 
     @Transactional
     @Override
@@ -29,7 +33,11 @@ public class IncomeRepositoryAdapter implements IncomeRepository {
         entity.setDate(income.getDate());
         entity.setCreatedDate(income.getCreatedDate());
         entity.setUpdatedDate(income.getUpdatedDate());
-        entity.setCategory(income.getCategory());
+
+        var category = transactionCategory.findById(income.getCategory().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+
+        entity.setCategory(category);
         entity.setDescription(income.getDescription());
         entity.setProjectId(income.getProjectId());
         entity.setCreatedByUserId(income.getCreatedByUserId());
@@ -62,7 +70,15 @@ public class IncomeRepositoryAdapter implements IncomeRepository {
         income.setProjectId(entity.getProjectId());
         income.setName(entity.getName());
         income.setDescription(entity.getDescription());
-        income.setCategory(entity.getCategory());
+        income.setCategory(
+                TransactionCategory.builder()
+                        .id(entity.getCategory().getId())
+                        .type(entity.getCategory().getTransactionType())
+                        .name(entity.getCategory().getName())
+                        .projectId(entity.getCategory().getProjectId())
+                        .createdAt(entity.getCategory().getCreatedAt())
+                        .build()
+        );
         income.setAmount(entity.getAmount());
         income.setDate(entity.getDate());
         income.setCreatedDate(entity.getCreatedDate());
