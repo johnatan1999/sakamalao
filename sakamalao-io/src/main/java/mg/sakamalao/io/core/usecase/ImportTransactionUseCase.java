@@ -1,15 +1,11 @@
 package mg.sakamalao.io.core.usecase;
 
-import mg.sakamalao.common.core.domain.entity.Expense;
-import mg.sakamalao.common.core.domain.entity.Income;
-import mg.sakamalao.common.core.domain.enums.TransactionType;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.income.core.repository.IncomeRepository;
-import mg.sakamalao.io.core.domain.Transaction;
+import mg.sakamalao.io.infrastructure.driver.entities.request.ImportTransactionRequest;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,13 +24,13 @@ public class ImportTransactionUseCase {
         this.expenseRepository = expenseRepository;
     }
 
-    public void importTransactions(UUID userId, UUID projectId, List<Transaction> transactions) {
+    public void importTransactions(UUID userId, UUID projectId, List<ImportTransactionRequest> transactions) {
         var hasAccess = projectAccessPort.hasAccess(userId, projectId);
         if (!hasAccess) {
             throw new EntityNotFoundException("Project with id=%s not found".formatted(projectId));
         }
 
-        List<Income> incomes = transactions.stream()
+/*        List<Income> incomes = transactions.stream()
                 .filter(t -> t.getType().equals(TransactionType.INCOME))
                 .map(t -> (Income) Income.builder()
 //                        .category(IncomeCategory.valueOf(t.getCategory()))
@@ -65,6 +61,6 @@ public class ImportTransactionUseCase {
         }
         for (var expense : expenses) {
             expenseRepository.save(expense);
-        }
+        }*/
     }
 }
