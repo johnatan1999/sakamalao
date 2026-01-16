@@ -1,8 +1,10 @@
 package mg.sakamalao.io.infrastructure.adapter.persistence.jpa;
 
+import mg.sakamalao.io.core.domain.ImportStatus;
 import mg.sakamalao.io.infrastructure.adapter.persistence.entity.ImportTransactionRowDbEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +17,7 @@ public interface ImportTransactionRowJpaRepository extends JpaRepository<ImportT
       FROM ImportTransactionRowDbEntity r
       WHERE r.session.id = :sessionId
     """)
-    List<ImportTransactionRowDbEntity> findAllBySessionId(UUID sessionId);
+    List<ImportTransactionRowDbEntity> findAllBySessionId(@Param("sessionId") UUID sessionId);
+
+    List<ImportTransactionRowDbEntity> findAllByStatus(ImportStatus status);
 }

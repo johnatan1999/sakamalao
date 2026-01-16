@@ -11,4 +11,5 @@ public interface ExpenseRepository {
     Optional<Expense> findById(UUID id);
     List<Expense> findByProjectId(UUID projectId);
     void deleteById(UUID id);
+    void saveAll(List<Expense> expenses);
 }

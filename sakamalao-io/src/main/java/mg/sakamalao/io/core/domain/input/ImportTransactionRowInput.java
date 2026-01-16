@@ -13,6 +13,6 @@ public record ImportTransactionRowInput(
         String type,
         String category,
         double amount,
-        LocalDateTime createdDate
+        LocalDateTime date
 ) {
 }

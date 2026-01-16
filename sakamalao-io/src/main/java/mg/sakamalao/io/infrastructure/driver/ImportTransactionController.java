@@ -3,7 +3,9 @@ package mg.sakamalao.io.infrastructure.driver;
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.User;
 import mg.sakamalao.common.infrastructure.driver.domain.CurrentUser;
-import mg.sakamalao.io.core.usecase.ImportTransactionUseCase;
+import mg.sakamalao.io.core.domain.ImportTransactionRow;
+import mg.sakamalao.io.core.usecase.CompleteImportTransactionUseCase;
+import mg.sakamalao.io.core.usecase.GetImportSessionUseCase;
 import mg.sakamalao.io.infrastructure.adapter.CreateImportSessionService;
 import mg.sakamalao.io.infrastructure.driver.entities.request.ImportTransactionRequest;
 import org.springframework.http.HttpStatus;
@@ -18,9 +20,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ImportTransactionController {
 
-    private final ImportTransactionUseCase importTransactionUseCase;
+    private final CompleteImportTransactionUseCase completeImportTransactionUseCase;
 
     private final CreateImportSessionService importSessionService;
+
+    private final GetImportSessionUseCase getImportSessionUseCase;
 
     @PostMapping
     public ResponseEntity<Void> importTransaction(
@@ -28,7 +32,6 @@ public class ImportTransactionController {
             @CurrentUser User user,
             @PathVariable UUID projectId
             ) {
-//        importTransactionUseCase.importTransactions(user.id(), projectId, transactions);
         importSessionService.importData(
                 projectId,
                 user.id(),
@@ -36,4 +39,15 @@ public class ImportTransactionController {
         );
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @GetMapping("/{sessionId}")
+    public ResponseEntity<List<ImportTransactionRow>> findBySession(
+            @CurrentUser User user,
+            @PathVariable UUID projectId,
+            @PathVariable UUID sessionId
+    ) {
+        var result = getImportSessionUseCase.findBySession(sessionId, projectId, user.id());
+        return ResponseEntity.ok(result);
+    }
+
 }

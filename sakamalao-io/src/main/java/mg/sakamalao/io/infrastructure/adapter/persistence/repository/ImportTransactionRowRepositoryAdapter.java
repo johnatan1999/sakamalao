@@ -37,7 +37,8 @@ public class ImportTransactionRowRepositoryAdapter implements ImportTransactionR
 
     @Override
     public List<ImportTransactionRow> findBySession(UUID sessionId) {
-        return repository.findAllBySessionId(sessionId)
+//        return repository.findAllBySessionId(sessionId) // TODO: to implement on front side
+        return repository.findAllByStatus(ImportStatus.PENDING)
                 .stream()
                 .map(ImportTransactionRowMapper::mapToDomain)
                 .toList();

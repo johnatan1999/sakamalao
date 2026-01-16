@@ -1,5 +1,7 @@
 package mg.sakamalao.expense.infrastructure.adapter.persistence.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Expense;
 import mg.sakamalao.common.core.domain.entity.TransactionCategory;
@@ -8,6 +10,7 @@ import mg.sakamalao.common.infrastructure.adapter.jpa.TransactionCategoryJpaRepo
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.expense.infrastructure.adapter.persistence.entity.ExpenseDbEntity;
 import mg.sakamalao.expense.infrastructure.adapter.persistence.jpa.ExpenseJpaRepository;
+import mg.sakamalao.expense.infrastructure.adapter.persistence.mapper.ExpenseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +24,7 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
 
     private final ExpenseJpaRepository repository;
     private final TransactionCategoryJpaRepository transactionCategory;
+    private final EntityManager entityManager;
 
     @Override
     public Expense save(Expense expense) {
@@ -43,6 +47,30 @@ public class ExpenseRepositoryAdapter implements ExpenseRepository {
 
         ExpenseDbEntity saved = repository.save(entity);
         return mapToDomain(saved);
+    }
+
+    @Override
+    @Transactional
+    public void saveAll(List<Expense> incomes) {
+
+        int batchSize = 50;
+
+        for (int i = 0; i < incomes.size(); i++) {
+            Expense expense = incomes.get(i);
+            var category = transactionCategory.findById(expense.getCategory().getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+
+            ExpenseDbEntity entity = ExpenseMapper.mapToDbEntity(expense, category);
+            entityManager.persist(entity);
+
+            if (i % batchSize == 0 && i > 0) {
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+
+        entityManager.flush();
+        entityManager.clear();
     }
 
     @Override

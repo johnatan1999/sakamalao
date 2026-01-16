@@ -2,6 +2,7 @@ package mg.sakamalao.io.core.domain;
 
 import lombok.Builder;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
@@ -11,5 +12,6 @@ public record ImportTransactionRow(
         String name,
         String type,
         String category,
-        double amount
+        double amount,
+        LocalDateTime date
 ) {}

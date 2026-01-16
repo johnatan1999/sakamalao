@@ -1,5 +1,6 @@
 package mg.sakamalao.io.infrastructure.adapter.persistence.mapper;
 
+import mg.sakamalao.io.core.domain.ImportStatus;
 import mg.sakamalao.io.core.domain.ImportTransactionRow;
 import mg.sakamalao.io.core.domain.input.ImportTransactionRowInput;
 import mg.sakamalao.io.infrastructure.adapter.persistence.entity.ImportSessionDbEntity;
@@ -15,7 +16,8 @@ public final class ImportTransactionRowMapper {
         e.setType(input.type());
         e.setRawCategory(input.category());
         e.setRawName(input.name());
-        e.setRawDate(input.createdDate());
+        e.setRawDate(input.date());
+        e.setStatus(ImportStatus.PENDING);
         var session = new ImportSessionDbEntity();
         session.setId(input.sessionId());
         e.setSession(session);
@@ -29,6 +31,8 @@ public final class ImportTransactionRowMapper {
                 .id(e.getId())
                 .sessionId(e.getSession().getId())
                 .name(e.getRawName())
+                .type(e.getType())
+                .date(e.getRawDate())
                 .build();
     }
 }

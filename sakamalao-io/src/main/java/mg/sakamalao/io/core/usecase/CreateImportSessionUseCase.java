@@ -44,6 +44,8 @@ public class CreateImportSessionUseCase {
                         .category(d.category())
                         .amount(d.amount())
                         .type(d.type())
+                        .date(d.date())
+                        .description(d.description())
                         .build())
                 .collect(Collectors.toList());
     }

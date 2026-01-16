@@ -1,14 +1,15 @@
 package mg.sakamalao.income.infrastructure.adapter.persistence.repository;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Income;
-import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.common.infrastructure.adapter.jpa.TransactionCategoryJpaRepository;
 import mg.sakamalao.income.core.repository.IncomeRepository;
 import mg.sakamalao.income.infrastructure.adapter.persistence.entity.IncomeDbEntity;
 import mg.sakamalao.income.infrastructure.adapter.persistence.jpa.IncomeJpaRepository;
+import mg.sakamalao.income.infrastructure.adapter.persistence.mapper.IncomeMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,40 +23,66 @@ public class IncomeRepositoryAdapter implements IncomeRepository {
 
     private final IncomeJpaRepository repository;
     private final TransactionCategoryJpaRepository transactionCategory;
+    private final EntityManager entityManager;
 
     @Transactional
     @Override
     public Income save(Income income) {
-        IncomeDbEntity entity = new IncomeDbEntity();
+        /*IncomeDbEntity entity = new IncomeDbEntity();
         entity.setId(income.getId());
         entity.setName(income.getName());
         entity.setAmount(income.getAmount());
         entity.setDate(income.getDate());
         entity.setCreatedDate(income.getCreatedDate());
-        entity.setUpdatedDate(income.getUpdatedDate());
+        entity.setUpdatedDate(income.getUpdatedDate());*/
 
         var category = transactionCategory.findById(income.getCategory().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Category not found"));
 
-        entity.setCategory(category);
+/*        entity.setCategory(category);
         entity.setDescription(income.getDescription());
         entity.setProjectId(income.getProjectId());
         entity.setCreatedByUserId(income.getCreatedByUserId());
-        entity.setUpdatedByUserId(income.getUpdatedByUserId());
+        entity.setUpdatedByUserId(income.getUpdatedByUserId());*/
+        var entity = IncomeMapper.mapToDbEntity(income, category);
 
         IncomeDbEntity saved = repository.save(entity);
-        return mapToDomain(saved);
+        return IncomeMapper.mapToDomain(saved);
+    }
+
+    @Override
+    @Transactional
+    public void saveAll(List<Income> incomes) {
+
+        int batchSize = 50;
+
+        for (int i = 0; i < incomes.size(); i++) {
+            Income income = incomes.get(i);
+            var category = transactionCategory.findById(income.getCategory().getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+
+            IncomeDbEntity entity = IncomeMapper.mapToDbEntity(income, category);
+            entityManager.persist(entity);
+
+            if (i % batchSize == 0 && i > 0) {
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+
+        entityManager.flush();
+        entityManager.clear();
     }
 
     @Override
     public Optional<Income> findById(UUID id) {
-        return repository.findById(id).map(this::mapToDomain);
+        return repository.findById(id).map(IncomeMapper::mapToDomain);
     }
 
     @Override
     public List<Income> findByProjectId(UUID projectId) {
         return repository.findByProjectId(projectId).stream()
-                .map(this::mapToDomain)
+                .map(IncomeMapper::mapToDomain)
                 .collect(Collectors.toList());
     }
 
@@ -64,27 +91,4 @@ public class IncomeRepositoryAdapter implements IncomeRepository {
         repository.deleteById(id);
     }
 
-    private Income mapToDomain(IncomeDbEntity entity) {
-        var income = new Income();
-        income.setId(entity.getId());
-        income.setProjectId(entity.getProjectId());
-        income.setName(entity.getName());
-        income.setDescription(entity.getDescription());
-        income.setCategory(
-                TransactionCategory.builder()
-                        .id(entity.getCategory().getId())
-                        .type(entity.getCategory().getTransactionType())
-                        .name(entity.getCategory().getName())
-                        .projectId(entity.getCategory().getProjectId())
-                        .createdAt(entity.getCategory().getCreatedAt())
-                        .build()
-        );
-        income.setAmount(entity.getAmount());
-        income.setDate(entity.getDate());
-        income.setCreatedDate(entity.getCreatedDate());
-        income.setUpdatedDate(entity.getUpdatedDate());
-        income.setCreatedByUserId(entity.getCreatedByUserId());
-        income.setUpdatedByUserId(entity.getUpdatedByUserId());
-        return income;
-    }
 }

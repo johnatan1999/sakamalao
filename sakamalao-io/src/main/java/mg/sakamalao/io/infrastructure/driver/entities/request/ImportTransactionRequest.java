@@ -16,7 +16,7 @@ public class ImportTransactionRequest {
 
     public ImportTransactionRowInput mapToInput() {
         return ImportTransactionRowInput.builder()
-                .createdDate(date)
+                .date(date)
                 .description(description)
                 .amount(amount)
                 .type(type)
