@@ -4,9 +4,10 @@ import mg.sakamalao.io.core.domain.ImportSession;
 import mg.sakamalao.io.core.domain.input.ImportSessionInput;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ImportSessionRepository {
     ImportSession create(ImportSessionInput input);
-    List<ImportSession> findPendingImports();
+    List<ImportSession> findPendingImportsByProjectId(UUID projectId);
     void update(ImportSession importSession);
 }

@@ -10,6 +10,7 @@ import mg.sakamalao.io.infrastructure.adapter.persistence.mapper.ImportSessionMa
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -25,8 +26,8 @@ public class ImportSessionRepositoryAdapter implements ImportSessionRepository {
     }
 
     @Override
-    public List<ImportSession> findPendingImports() {
-        return repository.findAllByStatus(ImportStatus.PENDING)
+    public List<ImportSession> findPendingImportsByProjectId(UUID projectId) {
+        return repository.findAllByStatusAndProjectId(ImportStatus.PENDING, projectId)
                 .stream()
                 .map(ImportSessionMapper::mapToDomain)
                 .toList();

@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface ImportSessionJpaRepository extends JpaRepository<ImportSessionDbEntity, UUID> {
-    List<ImportSessionDbEntity> findAllByStatus(ImportStatus status);
+    List<ImportSessionDbEntity> findAllByStatusAndProjectId(ImportStatus status, UUID projectId);
 }

@@ -1,4 +1,4 @@
-package mg.sakamalao.io.infrastructure.driver;
+package mg.sakamalao.io.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.User;
@@ -25,8 +25,8 @@ public class CompleteImportTransactionController {
             @PathVariable UUID projectId
     ) {
         completeTransactionImportService.completeImportTransaction(
-                projectId,
                 user.id(),
+                projectId,
                 transactions.stream().map(MappedTransactionRequest::mapToInput).toList()
         );
         return ResponseEntity.status(HttpStatus.CREATED).build();

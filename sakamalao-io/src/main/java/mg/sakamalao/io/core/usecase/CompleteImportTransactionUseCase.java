@@ -10,7 +10,9 @@ import mg.sakamalao.common.core.port.ProjectAccessPort;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.income.core.repository.IncomeRepository;
 import mg.sakamalao.io.core.domain.input.MappedTransactionInput;
+import mg.sakamalao.io.core.repository.ImportTransactionRowRepository;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -22,18 +24,21 @@ public class CompleteImportTransactionUseCase {
     private final ProjectAccessPort projectAccessPort;
     private final IncomeRepository incomeRepository;
     private final ExpenseRepository expenseRepository;
+    private final ImportTransactionRowRepository transactionRowRepository;
     private final TransactionCategoryRepository categoryRepository;
 
     public CompleteImportTransactionUseCase(
             ProjectAccessPort projectAccessPort,
             IncomeRepository incomeRepository,
             ExpenseRepository expenseRepository,
+            ImportTransactionRowRepository transactionRowRepository,
             TransactionCategoryRepository categoryRepository
     ) {
         this.projectAccessPort = projectAccessPort;
         this.incomeRepository = incomeRepository;
         this.expenseRepository = expenseRepository;
         this.categoryRepository = categoryRepository;
+        this.transactionRowRepository = transactionRowRepository;
     }
 
     public void completeTransactionsImport(UUID userId, UUID projectId, List<MappedTransactionInput> transactions) {
@@ -56,6 +61,7 @@ public class CompleteImportTransactionUseCase {
                             .projectId(projectId)
                             .createdByUserId(userId)
                             .date(t.getDate() != null ? t.getDate().toLocalDate() : LocalDate.now())
+                            .createdDate(LocalDate.now())
                             .build();
                     }
                 ).toList();
@@ -71,14 +77,20 @@ public class CompleteImportTransactionUseCase {
                             .projectId(projectId)
                             .createdByUserId(userId)
                             .date(t.getDate() != null ? t.getDate().toLocalDate() : LocalDate.now())
+                            .createdDate(LocalDate.now())
                             .build();
                 }).toList();
+
         incomeRepository.saveAll(incomes);
         expenseRepository.saveAll(expenses);
     }
 
     private String categoryKey(UUID projectId, String name, TransactionType type) {
-        return projectId + ":" + type + ":" + name.toLowerCase();
+        return projectId + ":" + type + ":" + Normalizer
+                .normalize(name, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase()
+                .replaceAll("[^a-z0-9]", "");
     }
 
     private TransactionCategory findOrCreateCategory(

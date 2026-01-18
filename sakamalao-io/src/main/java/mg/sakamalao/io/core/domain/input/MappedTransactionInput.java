@@ -4,9 +4,11 @@ import lombok.Data;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 public class MappedTransactionInput {
+    private UUID id;
     private String name;
     private String description;
     private String categoryId;

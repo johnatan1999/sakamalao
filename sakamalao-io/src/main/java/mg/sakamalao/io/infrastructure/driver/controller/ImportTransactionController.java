@@ -1,4 +1,4 @@
-package mg.sakamalao.io.infrastructure.driver;
+package mg.sakamalao.io.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.User;
