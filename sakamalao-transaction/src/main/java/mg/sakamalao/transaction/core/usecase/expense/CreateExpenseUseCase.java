@@ -9,7 +9,7 @@ import mg.sakamalao.common.validator.FieldValidator;
 import mg.sakamalao.transaction.core.domain.expense.ExpenseInput;
 import mg.sakamalao.transaction.core.repository.expense.ExpenseRepository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CreateExpenseUseCase {
@@ -54,9 +54,9 @@ public class CreateExpenseUseCase {
                                 .build()
                 )
                 .amount(input.amount())
-                .date(input.date() != null ? input.date() : LocalDate.now())
+                .date(input.date() != null ? input.date() : LocalDateTime.now())
                 .createdByUserId(userId)
-                .createdDate(LocalDate.now())
+                .createdDate(LocalDateTime.now())
                 .build();
 
         return repository.save(expense);

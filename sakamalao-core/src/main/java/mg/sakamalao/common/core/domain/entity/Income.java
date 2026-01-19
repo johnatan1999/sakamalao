@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -22,5 +22,5 @@ public class Income extends AuditableEntity {
     private String description;
     private TransactionCategory category;
     private double amount;
-    private LocalDate date;
+    private LocalDateTime date;
 }

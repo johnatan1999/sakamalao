@@ -1,6 +1,6 @@
 package mg.sakamalao.transaction.core.domain.income;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record UpdateIncomeInput(
@@ -10,6 +10,6 @@ public record UpdateIncomeInput(
         double amount,
         UUID categoryId,
         UUID projectId,
-        LocalDate date
+        LocalDateTime date
 ) {
 }

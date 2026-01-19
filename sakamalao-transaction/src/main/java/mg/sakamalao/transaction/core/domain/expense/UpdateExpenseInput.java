@@ -1,6 +1,6 @@
 package mg.sakamalao.transaction.core.domain.expense;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record UpdateExpenseInput(
@@ -10,6 +10,6 @@ public record UpdateExpenseInput(
         double amount,
         UUID categoryId,
         UUID projectId,
-        LocalDate date
+        LocalDateTime date
 ) {}
 

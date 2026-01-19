@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -32,13 +32,13 @@ public class IncomeDbEntity {
     private double amount;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(nullable = true)
-    private LocalDate updatedDate;
+    private LocalDateTime updatedDate;
 
     @Column(name = "project_id", nullable = false)
     private UUID projectId;

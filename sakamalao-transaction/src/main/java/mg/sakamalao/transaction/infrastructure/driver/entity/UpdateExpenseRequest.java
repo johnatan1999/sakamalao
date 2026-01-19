@@ -1,6 +1,6 @@
 package mg.sakamalao.transaction.infrastructure.driver.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record UpdateExpenseRequest(
@@ -9,6 +9,6 @@ public record UpdateExpenseRequest(
         double amount,
         UUID categoryId,
         UUID projectId,
-        LocalDate date
+        LocalDateTime date
 ) {
 }

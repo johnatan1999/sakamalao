@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -13,8 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class AuditableEntity {
-    protected LocalDate createdDate;
-    protected LocalDate updatedDate;
+    protected LocalDateTime createdDate;
+    protected LocalDateTime updatedDate;
     protected UUID createdByUserId;
     protected UUID updatedByUserId;
 }

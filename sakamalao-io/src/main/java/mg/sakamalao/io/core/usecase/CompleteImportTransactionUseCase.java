@@ -16,7 +16,6 @@ import mg.sakamalao.transaction.core.repository.expense.ExpenseRepository;
 import mg.sakamalao.transaction.core.repository.income.IncomeRepository;
 
 import java.text.Normalizer;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -73,8 +72,8 @@ public class CompleteImportTransactionUseCase {
                             .projectId(projectId)
                             .importId(t.getId())
                             .createdByUserId(userId)
-                            .date(t.getDate() != null ? t.getDate().toLocalDate() : LocalDate.now())
-                            .createdDate(LocalDate.now())
+                            .date(t.getDate() != null ? t.getDate() : LocalDateTime.now())
+                            .createdDate(LocalDateTime.now())
                             .build();
                     }
                 ).toList();
@@ -91,8 +90,8 @@ public class CompleteImportTransactionUseCase {
                             .projectId(projectId)
                             .createdByUserId(userId)
                             .importId(t.getId())
-                            .date(t.getDate() != null ? t.getDate().toLocalDate() : LocalDate.now())
-                            .createdDate(LocalDate.now())
+                            .date(t.getDate() != null ? t.getDate() : LocalDateTime.now())
+                            .createdDate(LocalDateTime.now())
                             .build();
                 }).toList();
 

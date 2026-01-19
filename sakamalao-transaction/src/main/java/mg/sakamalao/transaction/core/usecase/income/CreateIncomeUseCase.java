@@ -9,7 +9,7 @@ import mg.sakamalao.common.validator.FieldValidator;
 import mg.sakamalao.transaction.core.domain.income.IncomeInput;
 import mg.sakamalao.transaction.core.repository.income.IncomeRepository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CreateIncomeUseCase {
@@ -55,8 +55,8 @@ public class CreateIncomeUseCase {
                         .build()
         );
         income.setAmount(input.amount());
-        income.setDate(input.date() != null ? input.date() : LocalDate.now());
-        income.setCreatedDate(LocalDate.now());
+        income.setDate(input.date() != null ? input.date() : LocalDateTime.now());
+        income.setCreatedDate(LocalDateTime.now());
         income.setCreatedByUserId(userId);
 
         return repository.save(income);
