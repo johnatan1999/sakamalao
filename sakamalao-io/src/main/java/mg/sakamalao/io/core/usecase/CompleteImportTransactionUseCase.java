@@ -8,12 +8,12 @@ import mg.sakamalao.common.core.domain.enums.TransactionType;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.common.core.usecase.ProjectAccessCheckerUseCase;
 import mg.sakamalao.common.validator.FieldValidator;
-import mg.sakamalao.expense.core.repository.ExpenseRepository;
-import mg.sakamalao.income.core.repository.IncomeRepository;
 import mg.sakamalao.io.core.domain.ImportStatus;
 import mg.sakamalao.io.core.domain.input.MappedTransactionInput;
 import mg.sakamalao.io.core.repository.ImportSessionRepository;
 import mg.sakamalao.io.core.repository.ImportTransactionRowRepository;
+import mg.sakamalao.transaction.core.repository.expense.ExpenseRepository;
+import mg.sakamalao.transaction.core.repository.income.IncomeRepository;
 
 import java.text.Normalizer;
 import java.time.LocalDate;

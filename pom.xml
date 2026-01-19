@@ -11,8 +11,6 @@
     <modules>
         <module>sakamalao-employee</module>
         <module>sakamalao-core</module>
-        <module>sakamalao-expense</module>
-        <module>sakamalao-income</module>
         <module>sakamalao-dashboard</module>
         <module>sakamalao-project</module>
         <module>sakamalao-api</module>
@@ -21,6 +19,7 @@
         <module>sakamalao-cms</module>
         <module>sakamalao-io</module>
         <module>sakamalao-liquibase</module>
+        <module>sakamalao-transaction</module>
     </modules>
 
     <properties>
