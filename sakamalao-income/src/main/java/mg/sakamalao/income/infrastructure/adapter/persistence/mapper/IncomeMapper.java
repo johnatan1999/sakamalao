@@ -23,6 +23,7 @@ public final class IncomeMapper {
                         .createdAt(entity.getCategory().getCreatedAt())
                         .build()
         );
+        income.setImportId(entity.getImportId());
         income.setAmount(entity.getAmount());
         income.setDate(entity.getDate());
         income.setCreatedDate(entity.getCreatedDate());
@@ -42,6 +43,7 @@ public final class IncomeMapper {
         entity.setCategory(category);
 
         entity.setAmount(income.getAmount());
+        entity.setImportId(income.getImportId());
         entity.setDate(income.getDate());
         entity.setCreatedDate(income.getCreatedDate());
         entity.setUpdatedDate(income.getUpdatedDate());

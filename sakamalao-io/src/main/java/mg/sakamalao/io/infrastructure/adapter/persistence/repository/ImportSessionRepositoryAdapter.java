@@ -1,6 +1,7 @@
 package mg.sakamalao.io.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
+import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
 import mg.sakamalao.io.core.domain.ImportSession;
 import mg.sakamalao.io.core.domain.ImportStatus;
 import mg.sakamalao.io.core.domain.input.ImportSessionInput;
@@ -34,8 +35,13 @@ public class ImportSessionRepositoryAdapter implements ImportSessionRepository {
     }
 
     @Override
-    public void update(ImportSession importSession) {
-        var entity = ImportSessionMapper.mapToDbEntity(importSession);
+    public void updateStatus(UUID sessionId, ImportStatus status) {
+        var entity = repository.findById(sessionId).orElseThrow(
+                () -> new EntityNotFoundException("Session not found")
+        );
+
+        entity.setStatus(status);
+
         repository.save(entity);
     }
 }

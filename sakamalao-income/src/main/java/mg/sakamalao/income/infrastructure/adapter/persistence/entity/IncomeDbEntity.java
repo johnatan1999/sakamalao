@@ -44,6 +44,9 @@ public class IncomeDbEntity {
     @Column(name = "project_id", nullable = false)
     private UUID projectId;
 
+    @Column(name = "import_id")
+    private UUID importId;
+
     @Column(name = "created_by_user_id", nullable = false)
     private UUID createdByUserId;
 

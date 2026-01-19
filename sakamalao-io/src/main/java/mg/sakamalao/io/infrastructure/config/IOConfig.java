@@ -30,17 +30,19 @@ public class IOConfig {
 
     @Bean
     public CompleteImportTransactionUseCase importTransactionUseCase(
-            ProjectAccessPort projectAccessPort,
+            ProjectAccessCheckerUseCase projectAccessChecker,
             IncomeRepository incomeRepository,
             ExpenseRepository expenseRepository,
-            ImportTransactionRowRepository transactionRowRepository,
+            ImportSessionRepository importSessionRepository,
+            ImportTransactionRowRepository importTransactionRowRepository,
             TransactionCategoryRepository categoryRepository
     ) {
         return new CompleteImportTransactionUseCase(
-                projectAccessPort,
+                projectAccessChecker,
                 incomeRepository,
                 expenseRepository,
-                transactionRowRepository,
+                importSessionRepository,
+                importTransactionRowRepository,
                 categoryRepository
         );
     }

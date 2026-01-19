@@ -6,47 +6,59 @@ import mg.sakamalao.common.core.domain.entity.Income;
 import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.enums.TransactionType;
 import mg.sakamalao.common.core.domain.exception.EntityNotFoundException;
-import mg.sakamalao.common.core.port.ProjectAccessPort;
+import mg.sakamalao.common.core.usecase.ProjectAccessCheckerUseCase;
+import mg.sakamalao.common.validator.FieldValidator;
 import mg.sakamalao.expense.core.repository.ExpenseRepository;
 import mg.sakamalao.income.core.repository.IncomeRepository;
+import mg.sakamalao.io.core.domain.ImportStatus;
 import mg.sakamalao.io.core.domain.input.MappedTransactionInput;
+import mg.sakamalao.io.core.repository.ImportSessionRepository;
 import mg.sakamalao.io.core.repository.ImportTransactionRowRepository;
 
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CompleteImportTransactionUseCase {
-    private final ProjectAccessPort projectAccessPort;
+    private final ProjectAccessCheckerUseCase projectAccess;
     private final IncomeRepository incomeRepository;
     private final ExpenseRepository expenseRepository;
-    private final ImportTransactionRowRepository transactionRowRepository;
+    private final ImportSessionRepository importSessionRepository;
+    private final ImportTransactionRowRepository importTransactionRepository;
     private final TransactionCategoryRepository categoryRepository;
 
     public CompleteImportTransactionUseCase(
-            ProjectAccessPort projectAccessPort,
+            ProjectAccessCheckerUseCase projectAccess,
             IncomeRepository incomeRepository,
             ExpenseRepository expenseRepository,
-            ImportTransactionRowRepository transactionRowRepository,
+            ImportSessionRepository importSessionRepository,
+            ImportTransactionRowRepository importTransactionRowRepository,
             TransactionCategoryRepository categoryRepository
     ) {
-        this.projectAccessPort = projectAccessPort;
+        this.projectAccess = projectAccess;
         this.incomeRepository = incomeRepository;
         this.expenseRepository = expenseRepository;
         this.categoryRepository = categoryRepository;
-        this.transactionRowRepository = transactionRowRepository;
+        this.importSessionRepository = importSessionRepository;
+        this.importTransactionRepository = importTransactionRowRepository;
     }
 
-    public void completeTransactionsImport(UUID userId, UUID projectId, List<MappedTransactionInput> transactions) {
-        var hasAccess = projectAccessPort.hasAccess(userId, projectId);
-        if (!hasAccess) {
-            throw new EntityNotFoundException("Project with id=%s not found".formatted(projectId));
-        }
+    public void completeTransactionsImport(
+            UUID userId,
+            UUID projectId,
+            UUID sessionId,
+            List<MappedTransactionInput> transactions
+    ) {
+        // Validation
+        FieldValidator.notNull("userId", userId);
+        FieldValidator.notNull("projectId", projectId);
+        FieldValidator.notNull("sessionId", sessionId);
+        projectAccess.checkAccess(userId, projectId);
+        this.validateTransactions(sessionId, transactions);
 
+        // Processing
         Map<String, TransactionCategory> categoryCache = new HashMap<>();
 
         List<Income> incomes = transactions.stream()
@@ -59,12 +71,14 @@ public class CompleteImportTransactionUseCase {
                             .category(category)
                             .amount(t.getAmount())
                             .projectId(projectId)
+                            .importId(t.getId())
                             .createdByUserId(userId)
                             .date(t.getDate() != null ? t.getDate().toLocalDate() : LocalDate.now())
                             .createdDate(LocalDate.now())
                             .build();
                     }
                 ).toList();
+
         List<Expense> expenses = transactions.stream()
                 .filter(t -> t.getType().equals(TransactionType.EXPENSE))
                 .map(t -> {
@@ -76,13 +90,31 @@ public class CompleteImportTransactionUseCase {
                             .category(category)
                             .projectId(projectId)
                             .createdByUserId(userId)
+                            .importId(t.getId())
                             .date(t.getDate() != null ? t.getDate().toLocalDate() : LocalDate.now())
                             .createdDate(LocalDate.now())
                             .build();
                 }).toList();
 
+        // Persist
         incomeRepository.saveAll(incomes);
         expenseRepository.saveAll(expenses);
+        endImportSession(sessionId);
+    }
+
+    private void validateTransactions(UUID sessionId, List<MappedTransactionInput> transactions) {
+        Set<UUID> ids = transactions.stream()
+                .map(MappedTransactionInput::getId)
+                .collect(Collectors.toSet());
+
+        int allBelongToSession =
+                importTransactionRepository
+                        .countByIdsAndSessionId(ids, sessionId);
+
+        if (!(allBelongToSession == transactions.size())) {
+            throw new EntityNotFoundException("Some transactions do not exist for the session");
+        }
+
     }
 
     private String categoryKey(UUID projectId, String name, TransactionType type) {
@@ -117,4 +149,7 @@ public class CompleteImportTransactionUseCase {
         );
     }
 
+    private void endImportSession(UUID sessionId) {
+        importSessionRepository.updateStatus(sessionId, ImportStatus.COMPLETED);
+    }
 }

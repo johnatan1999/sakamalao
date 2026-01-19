@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Expense extends AuditableEntity {
     private UUID id;
     private UUID projectId;
+    private UUID importId;
     private String name;
     private String description;
     private TransactionCategory category;

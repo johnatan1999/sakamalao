@@ -22,11 +22,13 @@ public class CompleteImportTransactionController {
     public ResponseEntity<Void> completeImportTransaction(
             @RequestBody List<MappedTransactionRequest> transactions,
             @CurrentUser User user,
-            @PathVariable UUID projectId
+            @PathVariable UUID projectId,
+            @PathVariable UUID sessionId
     ) {
         completeTransactionImportService.completeImportTransaction(
                 user.id(),
                 projectId,
+                sessionId,
                 transactions.stream().map(MappedTransactionRequest::mapToInput).toList()
         );
         return ResponseEntity.status(HttpStatus.CREATED).build();

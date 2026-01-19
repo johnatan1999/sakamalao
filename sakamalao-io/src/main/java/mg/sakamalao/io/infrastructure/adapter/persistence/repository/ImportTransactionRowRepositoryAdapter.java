@@ -11,6 +11,7 @@ import mg.sakamalao.io.infrastructure.adapter.persistence.mapper.ImportTransacti
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -37,10 +38,14 @@ public class ImportTransactionRowRepositoryAdapter implements ImportTransactionR
 
     @Override
     public List<ImportTransactionRow> findBySession(UUID sessionId) {
-//        return repository.findAllBySessionId(sessionId) // TODO: to implement on front side
-        return repository.findAllByStatus(ImportStatus.PENDING)
+        return repository.findAllBySessionId(sessionId)
                 .stream()
                 .map(ImportTransactionRowMapper::mapToDomain)
                 .toList();
+    }
+
+    @Override
+    public int countByIdsAndSessionId(Set<UUID> ids, UUID sessionId) {
+        return this.repository.countByIdInAndSessionId(ids, sessionId);
     }
 }

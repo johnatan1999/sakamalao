@@ -22,6 +22,7 @@ public final class ExpenseMapper {
                         .createdAt(entity.getCategory().getCreatedAt())
                         .build()
         );
+        expense.setImportId(entity.getImportId());
         expense.setAmount(entity.getAmount());
         expense.setDate(entity.getDate());
         expense.setCreatedDate(entity.getCreatedDate());
@@ -40,6 +41,7 @@ public final class ExpenseMapper {
         entity.setDescription(expense.getDescription());
         entity.setCategory(category);
 
+        entity.setImportId(expense.getImportId());
         entity.setAmount(expense.getAmount());
         entity.setDate(expense.getDate());
         entity.setCreatedDate(expense.getCreatedDate());

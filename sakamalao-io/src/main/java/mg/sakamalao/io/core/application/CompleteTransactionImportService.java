@@ -15,10 +15,16 @@ public class CompleteTransactionImportService {
     private final CompleteImportTransactionUseCase completeImportTransactionUseCase;
 
     @Transactional
-    public void completeImportTransaction(UUID userId, UUID projectId, List<MappedTransactionInput> transactions) {
+    public void completeImportTransaction(
+            UUID userId,
+            UUID projectId,
+            UUID sessionId,
+            List<MappedTransactionInput> transactions
+    ) {
         this.completeImportTransactionUseCase.completeTransactionsImport(
                 userId,
                 projectId,
+                sessionId,
                 transactions
         );
     }

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Repository
@@ -20,4 +21,17 @@ public interface ImportTransactionRowJpaRepository extends JpaRepository<ImportT
     List<ImportTransactionRowDbEntity> findAllBySessionId(@Param("sessionId") UUID sessionId);
 
     List<ImportTransactionRowDbEntity> findAllByStatus(ImportStatus status);
+
+    /*@Query("""
+        select count(t.id)
+        from ImportTransactionRowDbEntity t
+        where t.id in :ids
+          and t.sessionId = :sessionId
+    """)
+    int countByIdsAndSessionId(
+            @Param("ids") Set<UUID> ids,
+            @Param("sessionId") UUID sessionId
+    );*/
+    int countByIdInAndSessionId(Set<UUID> ids, UUID sessionId);
+
 }

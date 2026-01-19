@@ -20,7 +20,7 @@ public class GetImportSessionUseCase {
             UUID projectId,
             UUID userId
     ) {
-//        FieldValidator.notNull("sessionId", sessionId);
+        FieldValidator.notNull("sessionId", sessionId);
         FieldValidator.notNull("projectId", projectId);
         FieldValidator.notNull("userId", userId);
 
