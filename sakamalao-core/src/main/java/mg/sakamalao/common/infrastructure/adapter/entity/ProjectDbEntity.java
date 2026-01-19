@@ -1,4 +1,4 @@
-package mg.sakamalao.project.infrastructure.adapter.persistence.entity;
+package mg.sakamalao.common.infrastructure.adapter.entity;
 
 
 import jakarta.persistence.*;

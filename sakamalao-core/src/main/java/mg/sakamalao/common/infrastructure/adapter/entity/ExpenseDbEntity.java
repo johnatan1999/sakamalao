@@ -1,11 +1,9 @@
-package mg.sakamalao.transaction.infrastructure.adapter.persistence.entity;
-
+package mg.sakamalao.common.infrastructure.adapter.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mg.sakamalao.common.infrastructure.adapter.entity.TransactionCategoryDbEntity;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -13,10 +11,10 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "incomes")
+@Table(name = "expenses")
 @NoArgsConstructor
 @AllArgsConstructor
-public class IncomeDbEntity {
+public class ExpenseDbEntity {
 
     @Id
     @GeneratedValue
@@ -58,4 +56,3 @@ public class IncomeDbEntity {
     private TransactionCategoryDbEntity category;
 
 }
-

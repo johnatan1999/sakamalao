@@ -1,6 +1,6 @@
 package mg.sakamalao.auth.infrastructure.adapter.persistence.jpa;
 
-import mg.sakamalao.auth.infrastructure.adapter.persistence.entity.UserDbEntity;
+import mg.sakamalao.common.infrastructure.adapter.entity.UserDbEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

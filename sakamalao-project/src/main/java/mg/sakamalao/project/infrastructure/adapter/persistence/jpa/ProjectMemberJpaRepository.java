@@ -1,7 +1,7 @@
 package mg.sakamalao.project.infrastructure.adapter.persistence.jpa;
 
 import mg.sakamalao.common.core.domain.enums.ProjectRole;
-import mg.sakamalao.project.infrastructure.adapter.persistence.entity.ProjectMemberDbEntity;
+import mg.sakamalao.common.infrastructure.adapter.entity.ProjectMemberDbEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -2,8 +2,8 @@ package mg.sakamalao.transaction.infrastructure.adapter.persistence.mapper;
 
 import mg.sakamalao.common.core.domain.entity.Income;
 import mg.sakamalao.common.core.domain.entity.TransactionCategory;
+import mg.sakamalao.common.infrastructure.adapter.entity.IncomeDbEntity;
 import mg.sakamalao.common.infrastructure.adapter.entity.TransactionCategoryDbEntity;
-import mg.sakamalao.transaction.infrastructure.adapter.persistence.entity.IncomeDbEntity;
 
 
 public final class IncomeMapper {

@@ -1,6 +1,6 @@
 package mg.sakamalao.transaction.infrastructure.adapter.persistence.jpa;
 
-import mg.sakamalao.transaction.infrastructure.adapter.persistence.entity.IncomeDbEntity;
+import mg.sakamalao.common.infrastructure.adapter.entity.IncomeDbEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

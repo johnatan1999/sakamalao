@@ -2,9 +2,9 @@ package mg.sakamalao.project.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.ProjectMember;
+import mg.sakamalao.common.infrastructure.adapter.entity.ProjectMemberDbEntity;
 import mg.sakamalao.project.core.domain.ProjectMemberInput;
 import mg.sakamalao.project.core.repository.ProjectMemberRepository;
-import mg.sakamalao.project.infrastructure.adapter.persistence.entity.ProjectMemberDbEntity;
 import mg.sakamalao.project.infrastructure.adapter.persistence.jpa.ProjectMemberJpaRepository;
 import org.springframework.stereotype.Component;
 

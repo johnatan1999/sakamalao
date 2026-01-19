@@ -1,6 +1,6 @@
 package mg.sakamalao.transaction.infrastructure.adapter.persistence.jpa;
 
-import mg.sakamalao.transaction.infrastructure.adapter.persistence.entity.ExpenseDbEntity;
+import mg.sakamalao.common.infrastructure.adapter.entity.ExpenseDbEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
