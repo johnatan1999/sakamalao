@@ -2,15 +2,16 @@ package mg.sakamalao.transaction.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Income;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.entity.User;
 import mg.sakamalao.common.infrastructure.driver.BaseController;
 import mg.sakamalao.common.infrastructure.driver.domain.CurrentUser;
+import mg.sakamalao.transaction.core.application.UpdateTransactionApplicationService;
 import mg.sakamalao.transaction.core.domain.income.IncomeInput;
-import mg.sakamalao.transaction.core.domain.income.UpdateIncomeInput;
+import mg.sakamalao.transaction.core.domain.input.UpdateTransactionInput;
 import mg.sakamalao.transaction.core.usecase.income.CreateIncomeUseCase;
 import mg.sakamalao.transaction.core.usecase.income.DeleteIncomeUseCase;
-import mg.sakamalao.transaction.core.usecase.income.FindIncomeUseCase;
-import mg.sakamalao.transaction.core.usecase.income.UpdateIncomeUseCase;
+import mg.sakamalao.transaction.core.usecase.income.FindIncomesUseCase;
 import mg.sakamalao.transaction.infrastructure.driver.entity.UpdateIncomeRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class IncomeController extends BaseController {
     private final CreateIncomeUseCase createIncomeUseCase;
-    private final UpdateIncomeUseCase updateIncomeUseCase;
+    private final UpdateTransactionApplicationService updateIncomeService;
     private final DeleteIncomeUseCase deleteIncomeUseCase;
-    private final FindIncomeUseCase findIncomeUseCase;
+    private final FindIncomesUseCase findIncomesUseCase;
 
     @PostMapping
     public ResponseEntity<Income> create(@RequestBody IncomeInput input, @CurrentUser User user) {
@@ -39,25 +40,31 @@ public class IncomeController extends BaseController {
             @PathVariable UUID projectId,
             @CurrentUser User user
     ) {
-        return findIncomeUseCase.findByProject((projectId), user.id());
+        return findIncomesUseCase.findByProject((projectId), user.id());
     }
 
     @PutMapping("/{incomeId}")
-    public ResponseEntity<Income> update(
+    public ResponseEntity<Void> update(
             @RequestBody UpdateIncomeRequest req,
             @PathVariable UUID incomeId,
             @CurrentUser User user
     ) {
-        var income = updateIncomeUseCase.update(new UpdateIncomeInput(
+        updateIncomeService.update(
+                user.id(),
                 incomeId,
-                req.name(),
-                req.description(),
-                req.amount(),
-                req.categoryId(),
-                req.projectId(),
-                req.date()
-        ), user.id());
-        return ResponseEntity.ok(income);
+                new UpdateTransactionInput(
+                        req.projectId(),
+                        req.name(),
+                        req.description(),
+                        req.type(),
+                        TransactionCategory.builder()
+                                .id(req.categoryId())
+                                .build(),
+                        req.amount(),
+                        req.date()
+                )
+        );
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

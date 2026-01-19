@@ -2,10 +2,11 @@ package mg.sakamalao.transaction.infrastructure.config;
 
 import mg.sakamalao.common.core.port.CategoryAccessPort;
 import mg.sakamalao.common.core.port.ProjectAccessPort;
+import mg.sakamalao.common.core.usecase.ProjectAccessCheckerUseCase;
 import mg.sakamalao.transaction.core.repository.income.IncomeRepository;
 import mg.sakamalao.transaction.core.usecase.income.CreateIncomeUseCase;
 import mg.sakamalao.transaction.core.usecase.income.DeleteIncomeUseCase;
-import mg.sakamalao.transaction.core.usecase.income.FindIncomeUseCase;
+import mg.sakamalao.transaction.core.usecase.income.FindIncomesUseCase;
 import mg.sakamalao.transaction.core.usecase.income.UpdateIncomeUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,10 +41,10 @@ public class IncomeConfig {
     }
 
     @Bean
-    public FindIncomeUseCase findIncomeUseCase(
+    public FindIncomesUseCase findIncomeUseCase(
             IncomeRepository repository,
-            ProjectAccessPort projectAccessPort
+            ProjectAccessCheckerUseCase projectAccessPort
     ) {
-        return new FindIncomeUseCase(repository, projectAccessPort);
+        return new FindIncomesUseCase(repository, projectAccessPort);
     }
 }

@@ -2,15 +2,16 @@ package mg.sakamalao.transaction.infrastructure.driver.controller;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Expense;
+import mg.sakamalao.common.core.domain.entity.TransactionCategory;
 import mg.sakamalao.common.core.domain.entity.User;
 import mg.sakamalao.common.infrastructure.driver.BaseController;
 import mg.sakamalao.common.infrastructure.driver.domain.CurrentUser;
+import mg.sakamalao.transaction.core.application.UpdateTransactionApplicationService;
 import mg.sakamalao.transaction.core.domain.expense.ExpenseInput;
-import mg.sakamalao.transaction.core.domain.expense.UpdateExpenseInput;
+import mg.sakamalao.transaction.core.domain.input.UpdateTransactionInput;
 import mg.sakamalao.transaction.core.usecase.expense.CreateExpenseUseCase;
 import mg.sakamalao.transaction.core.usecase.expense.DeleteExpenseUseCase;
-import mg.sakamalao.transaction.core.usecase.expense.ListExpensesUseCase;
-import mg.sakamalao.transaction.core.usecase.expense.UpdateExpenseUseCase;
+import mg.sakamalao.transaction.core.usecase.expense.FindExpensesUseCase;
 import mg.sakamalao.transaction.infrastructure.driver.entity.UpdateExpenseRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,9 @@ import java.util.UUID;
 public class ExpenseController extends BaseController {
 
     private final CreateExpenseUseCase createExpenseUseCase;
-    private final ListExpensesUseCase listExpensesUseCase;
+    private final FindExpensesUseCase listExpensesUseCase;
     private final DeleteExpenseUseCase deleteExpenseUseCase;
-    private final UpdateExpenseUseCase updateExpenseUseCase;
+    private final UpdateTransactionApplicationService updateExpense;
 
     @PostMapping
     public ResponseEntity<Expense> create(@RequestBody ExpenseInput input, @CurrentUser User user) {
@@ -41,21 +42,27 @@ public class ExpenseController extends BaseController {
     }
 
     @PutMapping("/{expenseId}")
-    public ResponseEntity<Expense> update(
+    public ResponseEntity<Void> update(
             @RequestBody UpdateExpenseRequest req,
             @PathVariable UUID expenseId,
             @CurrentUser User user
     ) {
-        var expense = updateExpenseUseCase.update(new UpdateExpenseInput(
+        updateExpense.update(
+                user.id(),
                 expenseId,
-                req.name(),
-                req.description(),
-                req.amount(),
-                req.categoryId(),
-                req.projectId(),
-                req.date()
-        ), user.id());
-        return ResponseEntity.ok(expense);
+                new UpdateTransactionInput(
+                    req.projectId(),
+                    req.name(),
+                    req.description(),
+                    req.type(),
+                    TransactionCategory.builder()
+                            .id(req.categoryId())
+                            .build(),
+                    req.amount(),
+                    req.date()
+                )
+        );
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
