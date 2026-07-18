@@ -74,4 +74,17 @@ public class DashboardConfig {
                 projectAccessPort
         );
     }
+
+    @Bean
+    public PortfolioSummaryUseCase portfolioSummaryUseCase(
+            IncomeDashboardPort incomeDashboardPort,
+            ExpenseDashboardPort expenseDashboardPort,
+            ProjectDashboardPort projectDashboardPort
+    ) {
+        return new PortfolioSummaryUseCase(
+                incomeDashboardPort,
+                expenseDashboardPort,
+                projectDashboardPort
+        );
+    }
 }

@@ -2,10 +2,12 @@ package mg.sakamalao.project.infrastructure.adapter.persistence.repository;
 
 import lombok.RequiredArgsConstructor;
 import mg.sakamalao.common.core.domain.entity.Project;
+import mg.sakamalao.dashboard.core.domain.ProjectOverview;
 import mg.sakamalao.dashboard.core.repository.ProjectDashboardPort;
 import mg.sakamalao.project.core.repository.ProjectRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -18,5 +20,12 @@ public class ProjectDashboardRepositoryAdapter implements ProjectDashboardPort {
     public double getBudget(UUID projectId) {
         var project = repository.findById(projectId);
         return project.map(Project::getBudget).orElse(0.0);
+    }
+
+    @Override
+    public List<ProjectOverview> findAllByOwner(UUID ownerId) {
+        return repository.find(ownerId, null).stream()
+                .map(p -> new ProjectOverview(p.getId(), p.getName(), p.getBudget()))
+                .toList();
     }
 }
